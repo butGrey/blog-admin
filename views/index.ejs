@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script type="text/javascript" src="/jquery.min.js"></script>
+    <script type="text/javascript" src="/wangEditor.min.js"></script>
+    <link href="/common.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<header>
+    <ul class="list">
+        <li>文章管理</li>
+        <li>用户管理</li>
+        <li>评论管理</li>
+        <li>留言管理</li>
+    </ul>
+    <div class="user">
+        <span>登录</span>
+        <span>注册</span>
+        <span>退出</span>
+    </div>
+</header>
+<div class="container">
+    <ul class="posts">
+        <% for (var i=0;i<articles.length;i++){%>
+        <li class="lists">
+            <h2 class="title" style="display: inline-block;margin: 10px auto;">标题：<%= articles[i].title %></h2>
+            <button>修改</button>
+            <form id="form3">
+                <textarea name="id"><%= articles[i].id %></textarea>
+                <button id="del" type="submit">删除</button>
+            </form>
+            <p class="time">时间：<%= articles[i].moment %></p>
+            <p class="category">类别：<%= articles[i].category %></p>
+            <div class="content" style="border: 1px solid red;">内容：<%- articles[i].content %></div>
+        </li>
+        <% } %>
+    </ul>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#del").click(function () {
+            $.ajax({
+                type: 'post',
+                url: "/",
+                data: $("#form3").serialize(),
+                dataType: "json",
+                success: function (msg) {
+                    if (msg.code != 200){
+                        alert("删除失败！");
+                    }else{
+                        alert("删除成功！");
+                        setTimeout(function() {
+                            location.reload()
+                        }, 1000)
+                    }
+                },
+                error: function () {
+                    alert("异常");
+                }
+            });
+            console.log($("#form3").serialize());
+        })
+    })
+</script>
+
+</body>
+</html>
