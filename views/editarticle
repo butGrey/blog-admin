@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script type="text/javascript" src="/jquery.min.js"></script>
+    <script type="text/javascript" src="/wangEditor.min.js"></script>
+    <link href="/common.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<header>
+    <ul class="list">
+        <li onclick="window.location.href = '/'">文章管理</li>
+        <li>用户管理</li>
+        <li>评论管理</li>
+        <li>留言管理</li>
+    </ul>
+    <div class="user">
+        <span>登录</span>
+        <span>注册</span>
+        <span>退出</span>
+    </div>
+</header>
+<div class="container">
+
+    <form style="width:100%;" method="post" id="form2">
+        <div>
+            <label>标题：</label>
+            <input value="<%=title%>" type="text" name="title">
+        </div>
+        <div>
+            <label>类别：</label>
+            <input value="<%=category%>" type="text" name="category">
+        </div>
+        <div>
+            <label>内容：</label>
+            <div id="div3"></div>
+            <textarea name="content" id="text1" rows="10" cols="110"></textarea>
+        </div>
+        <button id="artsubm" type="submit">发表</button>
+    </form>
+</div>
+
+<script type="text/javascript">
+    var E = window.wangEditor
+    var editor2 = new E('#div3')
+    editor2.customConfig.menus = [  //菜单配置，不要可以直接去掉这个默认全部功能都有如下图
+        'head',  // 标题
+        'bold',  // 粗体
+        'fontSize',  // 字号
+        'fontName',  // 字体
+        'italic',  // 斜体
+        'underline',  // 下划线
+        'foreColor',  // 文字颜色
+        'backColor',  // 背景颜色
+        'link',  // 插入链接
+        'list',  // 列表
+        'justify',  // 对齐方式
+        'image',  // 插入图片
+        'table',  // 表格
+        'video',  // 插入视频
+        'code',  // 插入代码
+        'undo'  // 撤销
+    ];
+    var $text1 = $('#text1');
+    editor2.customConfig.onchange = function (html) {
+        $text1.val(html)
+    };
+    console.log('<%-content%>');
+    editor2.create();
+    editor2.txt.html('<%-content%>');
+    $text1.val(editor2.txt.html());
+
+    $(document).ready(function () {
+        $("#artsubm").click(function () {
+            $.ajax({
+                type: 'post',
+                url: '',
+                data: $("#form2").serialize(),
+                dataType: "json",
+                success: function (msg) {
+                    if (msg.code != 200){
+                        alert("上传失败！");
+                    }else{
+                        alert("上传成功！");
+                        setTimeout(function () {
+                            window.location.href = "/"
+                        },1000)
+                    }
+                },
+                error: function () {
+                    alert("异常");
+                }
+            });
+            console.log($("#form2").serialize());
+        })
+    })
+</script>
+
+</body>
+</html>
