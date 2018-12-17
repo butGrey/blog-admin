@@ -36,7 +36,7 @@
         <div>
             <label>内容：</label>
             <div id="div3"></div>
-            <textarea placeholder="请输入内容" name="content" id="text1" cols="42" rows="10"></textarea>
+            <textarea style="height: 0px;width: 0px;" placeholder="请输入内容" name="content" id="text1" cols="42" rows="10"></textarea>
         </div>
         <button id="artsubm" type="submit">发表</button>
     </form>
@@ -74,7 +74,7 @@
         $("#artsubm").click(function () {
             $.ajax({
                 type: 'post',
-                url: "/addarticle",
+                url: "/add",
                 data: $("#form2").serialize(),
                 dataType: "json",
                 success: function (msg) {
@@ -84,7 +84,7 @@
                         alert("上传成功！");
                         setTimeout(function () {
                             window.location.href = "/"
-                        },1500)
+                        },1000)
                     }
                 },
                 error: function () {

@@ -16,17 +16,13 @@
         <li>评论管理</li>
         <li>留言管理</li>
     </ul>
-    <div class="user">
-        <span>登录</span>
-        <span>注册</span>
-        <span>退出</span>
-    </div>
 </header>
 <div class="container">
     <ul class="posts">
         <% for (var i=0;i<articles.length;i++){%>
         <li class="lists">
             <h2 class="title" style="display: inline-block;margin: 10px auto;">标题：<%= articles[i].title %></h2>
+            <button class="btn" onclick="window.location.href = '/addart'">添加</button>
             <button>修改</button>
             <form id="form3">
                 <textarea name="id"><%= articles[i].id %></textarea>
