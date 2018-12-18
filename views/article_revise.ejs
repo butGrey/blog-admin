@@ -1,27 +1,4 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <script type="text/javascript" src="/jquery.min.js"></script>
-    <script type="text/javascript" src="/wangEditor.min.js"></script>
-    <link href="/common.css" rel="stylesheet" type="text/css">
-</head>
-<body>
-<header>
-    <ul class="list">
-        <li onclick="window.location.href = '/'">文章管理</li>
-        <li>用户管理</li>
-        <li>评论管理</li>
-        <li>留言管理</li>
-    </ul>
-    <div class="user">
-        <span>登录</span>
-        <span>注册</span>
-        <span>退出</span>
-    </div>
-</header>
+<%- include("header",{type:''}) %>
 <div class="container">
 
     <form style="width:100%;" method="post" id="form2">

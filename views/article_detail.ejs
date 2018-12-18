@@ -1,27 +1,4 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <script type="text/javascript" src="/jquery.min.js"></script>
-    <script type="text/javascript" src="/wangEditor.min.js"></script>
-    <link href="/common.css" rel="stylesheet" type="text/css">
-</head>
-<body>
-<header>
-    <ul class="list">
-        <li onclick="window.location.href = '/'">文章管理</li>
-        <li>用户管理</li>
-        <li>评论管理</li>
-        <li>留言管理</li>
-    </ul>
-    <div class="user">
-        <span>登录</span>
-        <span>注册</span>
-        <span>退出</span>
-    </div>
-</header>
+<%- include("header",{type:''}) %>
 <div class="container">
     <ul class="posts">
         <li class="lists">
@@ -45,12 +22,13 @@
     </form>
     <div>
         <ul>
-            <% for (var i=0;i<coments.length;i++){%>
+            <% for (var i=0;i<comments.length;i++){%>
             <li>
-                <img src="../images/<%= coments[i].avator %>" alt="avator">
-                <span><%- coments[i].name %></span>
-                <span><%- coments[i].moment %></span>
-                <p><%- coments[i].pcontent %></p>
+                <img src="../images/<%= comments[i].avator %>" alt="avator">
+                <span><%- comments[i].name %></span>
+                <span><%- comments[i].moment %></span>
+                <p><%- comments[i].content %></p>
+                <a class="delete_comment" href="javascript:delete_comment(<%= comments[i].id %>);"> 删除</a>
             </li>
             <% } %>
         </ul>
@@ -115,7 +93,7 @@
             fade('请上传头像！')
         }else{
             $.ajax({
-                url: '/articleDetails/' + location.pathname.split('/')[2],
+                url: '/article_detail/' + location.pathname.split('/')[2],
                 data: {
                     name: $('input[name=name]').val(),
                     content: $('input[name=content]').val(),
@@ -141,6 +119,27 @@
             })
         }
     })
+    // 删除评论
+    function delete_comment(ids) {
+        $.ajax({
+            url: '/article_detail/' + location.pathname.split('/')[2]+"/comment_delete/" + ids,
+            type: 'POST',
+            cache: false,
+            success: function (msg) {
+                if (msg.code == 200) {
+                    console.log('删除留言成功');
+                    setTimeout(function() {
+                        location.reload()
+                    }, 1000)
+                } else {
+                    console.log('删除留言失败');
+                }
+            },
+            error: function () {
+                alert('异常')
+            }
+        })
+    }
 
 </script>
 

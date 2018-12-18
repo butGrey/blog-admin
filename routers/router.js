@@ -14,7 +14,7 @@ router.get('/',async(ctx)=>{
         .then(res => {
             articles = res
         });
-    await ctx.render('articles',{
+    await ctx.render('home',{
         articles:articles
     })
 });
@@ -35,7 +35,7 @@ router.post('/',async(ctx)=>{
         })
 });
 //修改文章-路由
-router.get('/editarticle/:aid',async(ctx)=>{
+router.get('/article_revise/:aid',async(ctx)=>{
     let aid = ctx.params.aid,
         res;
     await sql.findDataById(aid)
@@ -43,14 +43,14 @@ router.get('/editarticle/:aid',async(ctx)=>{
             res = result[0];
             console.log(res);
         });
-    await ctx.render('editarticle', {
+    await ctx.render('article_revise', {
         title: res.title,
         content: res.content,
         category: res.category
     })
 });
 //修改文章-数据
-router.post('/editarticle/:aid',async(ctx)=>{
+router.post('/article_revise/:aid',async(ctx)=>{
     let title = ctx.request.body.title,
         category = ctx.request.body.category,
         content = ctx.request.body.content,
@@ -69,11 +69,11 @@ router.post('/editarticle/:aid',async(ctx)=>{
         })
     });
 //添加文章-路由
-router.get('/addart',async(ctx)=>{
-    await ctx.render('article');
+router.get('/article_add',async(ctx)=>{
+    await ctx.render('article_add');
 });
 //添加文章-数据
-router.post('/add',async (ctx)=> {
+router.post('/article_add',async (ctx)=> {
     console.log(ctx.request.body);
     let {title, category, content} = ctx.request.body;
     let time = moment().format('YYYY-MM-DD HH:mm:ss');
@@ -90,38 +90,8 @@ router.post('/add',async (ctx)=> {
             }
         })
 });
-//登录页面路由
-router.get('/login',async(ctx)=>{
-    var compare = function () {
-        return {
-            name:'bll',
-            password:'123'
-        }
-    };
-    let content='hello,sunshine!';
-    await ctx.render('index',{
-        content:content
-    });
-});
-//获取表单提交数据（测试）
-router.post('/login',async (ctx)=>{
-    let { name,password } = ctx.request.body;
-    if (name=="bll"&&password=="bll123"){
-        ctx.body = {
-            code: 200,
-            message: '登陆成功'
-        }
-    }else{
-        ctx.body = {
-            code: 500,
-            message: '用户名或密码错误!'
-        };
-        console.log('用户名或密码错误!');
-    }
-});
-
 //查看文章-路由
-router.get('/articleDetails/:aid',async(ctx)=>{
+router.get('/article_detail/:aid',async(ctx)=>{
     let aid = ctx.params.aid,
         res,
         ress;
@@ -134,15 +104,16 @@ router.get('/articleDetails/:aid',async(ctx)=>{
             ress = result;
             console.log(ress);
         });
-    await ctx.render('articleDetails', {
+    await ctx.render('article_detail', {
         title: res.title,
         content: res.content,
         category: res.category,
         id: res.id,
-        coments: ress
+        comments: ress
     })
 });
-router.post('/articleDetails/:aid',async(ctx)=>{
+//查看文章-评论添加
+router.post('/article_detail/:aid',async(ctx)=>{
     let name = ctx.request.body.name,
         content = ctx.request.body.content,
         avator = ctx.request.body.avator,
@@ -175,6 +146,23 @@ router.post('/articleDetails/:aid',async(ctx)=>{
             }
         })
 })
+//查看文章-评论删除
+router.post('/article_detail/:aid/comment_delete/:ids',async(ctx)=>{
+    let postId = ctx.params.id,
+        commentId = ctx.params.ids;
+    await sql.deleteComment(commentId)
+        .then(() => {
+            ctx.body = {
+                code: 200,
+                message: '删除评论成功'
+            }
+        }).catch(() => {
+            ctx.body = {
+                code: 500,
+                message: '删除评论失败'
+            }
+        })
+})
 
 
 
@@ -187,8 +175,9 @@ router.post('/articleDetails/:aid',async(ctx)=>{
 
 
 //评论列表接口（http://localhost:3000/comments）
-router.get('/comments',async(ctx)=>{
-    await sql.findAllPosts()
+router.get('/comments/:id',async(ctx)=>{
+    let id = ctx.params.id;
+    await sql.findCommentById(id)
         .then(res => {
             ctx.body = {
                 code: 200,
