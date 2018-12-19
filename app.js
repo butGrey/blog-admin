@@ -10,7 +10,7 @@ const config = require('./config/default.js');
 const cors = require('koa-cors');
 var app = new Koa();
 
-//处理跨域问题
+//跨域
 app.use(cors());
 // session存储配置
 const sessionMysqlConfig= {

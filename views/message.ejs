@@ -1,0 +1,134 @@
+<%- include("header",{type:''}) %>
+<div class="container">
+    <form class="form" method="post" action="/message">
+        <input placeholder="请输入昵称" type="text" name="name">
+        <input placeholder="请输入评论" id="spContent" name="content" cols="82">
+        <div>
+            <label>上传头像：</label>
+            <input type="file" name="avator" id="avator">
+            <input type="hidden" id="avatorVal">
+            <img class="preview" alt="预览头像">
+        </div>
+        <div class="submit">发表留言</div>
+    </form>
+    <div>
+        <ul>
+            <% for (var i=0;i<messages.length;i++){%>
+                <li>
+                    <img src="../images/<%= messages[i].avator %>" alt="avator">
+                    <span><%- messages[i].name %></span>
+                    <span><%- messages[i].moment %></span>
+                    <p><%- messages[i].content %></p>
+                    <a class="delete_comment" href="javascript:delete_message(<%= messages[i].id %>);"> 删除</a>
+                </li>
+            <% } %>
+        </ul>
+    </div>
+
+</div>
+<script type="text/javascript">
+
+    $(window).keyup(function (e) {
+        //console.log(e.keyCode)
+        if (e.keyCode == 13) {
+            $('.submit').click()
+        }
+    })
+    $('#avator').change(function(){
+        if (this.files.length != 0) {
+            var file = this.files[0],
+                reader = new FileReader();
+            if (!reader) {
+                this.value = '';
+                return;
+            };
+            console.log(file.size,file.type)
+            if (!/image/g.test(file.type)) {
+                fade("请上传图片文件!")
+                $('#avatorVal').val('')
+                $('form .preview').attr('src', '')
+                $('form .preview').fadeOut()
+                return
+            }
+            reader.onload = function (e) {
+                this.value = '';
+                $('form .preview').attr('src', e.target.result)
+                $('form .preview').fadeIn()
+                var image = new Image();
+                image.onload = function(){
+                    var canvas = document.createElement('canvas');
+                    var ctx = canvas.getContext("2d");
+                    canvas.width = 100;
+                    canvas.height = 100;
+                    ctx.clearRect(0, 0, 100, 100);
+                    ctx.drawImage(image, 0, 0, 100, 100);
+                    var blob = canvas.toDataURL("image/png");
+                    $('#avatorVal').val(blob)
+                }
+                image.src = e.target.result
+            };
+            reader.readAsDataURL(file);
+        };
+    })
+    $('.submit').click(function(){
+        // console.log($('.form').serialize())
+        if ($('input[name=name]').val().trim() == '') {
+            fade('请输入用户名！')
+        }else if($('input[name=name]').val().match(/[<'">]/g)){
+            fade('请输入合法字符！')
+        }else if($('#avatorVal').val() == ''){
+            fade('请上传头像！')
+        }else{
+            $.ajax({
+                url: '/message',
+                data: {
+                    name: $('input[name=name]').val(),
+                    content: $('input[name=content]').val(),
+                    avator: $('#avatorVal').val()
+                },
+                type: "POST",
+                cache: false,
+                dataType: 'json',
+                success: function (msg) {
+                    if(msg.code == 200){
+                        console.log('评论成功')
+                        setTimeout(function(){
+                            window.location.reload()
+                        },1000)
+
+                    }else{
+                        console.log(msg.message)
+                    }
+                },
+                error: function () {
+                    alert('异常');
+                }
+            })
+        }
+    })
+    // 删除评论
+    function delete_message(ids) {
+        $.ajax({
+            url: '/message/' + ids,
+            type: 'POST',
+            cache: false,
+            success: function (msg) {
+                if (msg.code == 200) {
+                    console.log('删除留言成功');
+                    setTimeout(function() {
+                        location.reload()
+                    }, 1000)
+                } else {
+                    console.log('删除留言失败');
+                }
+            },
+            error: function () {
+                alert('异常')
+            }
+        })
+    }
+
+</script>
+
+</body>
+</html>
