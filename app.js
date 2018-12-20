@@ -12,6 +12,7 @@ var app = new Koa();
 
 //跨域
 app.use(cors());
+app.use(bodyParser());
 // session存储配置
 const sessionMysqlConfig= {
     user: config.database.USERNAME,
