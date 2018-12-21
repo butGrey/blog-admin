@@ -20,24 +20,7 @@
                     <span><%- messages[i].moment %></span>
                     <p><%- messages[i].content %></p>
                     <a class="delete_comment" href="javascript:delete_message(<%= messages[i].id %>);"> 删除</a>
-                    <div>
-                        <img src="../images/<%= messagereply[i].avator %>" alt="avator">
-                        <span><%- messagereply[i].name %></span>
-                        <span><%- messagereply[i].moment %></span>
-                        <p><%- messagereply[i].content %></p>
-                        <a class="delete_comment" href="javascript:delete_message(<%= messagereply[i].id %>);"> 删除</a>
-                    </div>
-                    <form class="form" method="post" action="/message">
-                        <input placeholder="请输入昵称" type="text" name="name">
-                        <input placeholder="请输入评论" id="spContent" name="content" cols="82">
-                        <div>
-                            <label>上传头像：</label>
-                            <input type="file" name="avator" class="avator">
-                            <input type="hidden" class="avatorVal">
-                            <img class="preview" alt="预览头像">
-                        </div>
-                        <div class="submit">发表留言</div>
-                    </form>
+
                 </li>
             <% } %>
         </ul>
@@ -63,7 +46,7 @@
             console.log(file.size,file.type)
             if (!/image/g.test(file.type)) {
                 fade("请上传图片文件!")
-                $('#avatorVal').val('')
+                $('.avatorVal').val('')
                 $('form .preview').attr('src', '')
                 $('form .preview').fadeOut()
                 return
@@ -81,7 +64,7 @@
                     ctx.clearRect(0, 0, 100, 100);
                     ctx.drawImage(image, 0, 0, 100, 100);
                     var blob = canvas.toDataURL("image/png");
-                    $('#avatorVal').val(blob)
+                    $('.avatorVal').val(blob)
                 }
                 image.src = e.target.result
             };
@@ -94,7 +77,7 @@
             fade('请输入用户名！')
         }else if($('input[name=name]').val().match(/[<'">]/g)){
             fade('请输入合法字符！')
-        }else if($('#avatorVal').val() == ''){
+        }else if($('.avatorVal').val() == ''){
             fade('请上传头像！')
         }else{
             $.ajax({
@@ -102,7 +85,7 @@
                 data: {
                     name: $('input[name=name]').val(),
                     content: $('input[name=content]').val(),
-                    avator: $('#avatorVal').val()
+                    avator: $('.avatorVal').val()
                 },
                 type: "POST",
                 cache: false,

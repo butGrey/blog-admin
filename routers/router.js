@@ -67,7 +67,7 @@ router.post('/article_revise/:aid',async(ctx)=>{
                 message: '修改文章失败'
             }
         })
-    });
+});
 //添加文章-路由
 router.get('/article_add',async(ctx)=>{
     await ctx.render('article_add');
@@ -166,12 +166,8 @@ router.post('/article_detail/:aid/comment_delete/:ids',async(ctx)=>{
 
 //留言-查看
 router.get('/message',async(ctx)=>{
-    let res;
+    let res,ress;
     await sql.findAllMessages()
-        .then(result => {
-            res = result;
-        });
-    await sql.findAllMessagesReply()
         .then(result => {
             res = result;
         });
@@ -184,7 +180,7 @@ router.post('/message',async(ctx)=>{
     let name = ctx.request.body.name,
         content = ctx.request.body.content,
         avator = ctx.request.body.avator,
-        postid = ctx.request.body.postid,
+        postid = '',
         rpname = ctx.request.body.rpname,
         time = moment().format('YYYY-MM-DD HH:mm:ss');
 

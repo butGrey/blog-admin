@@ -57,3 +57,7 @@ header{
     margin:10px;
     background-color: #fff;
 }
+.preview{
+    width: 100px;
+    height: 100px;
+}
