@@ -266,7 +266,7 @@ router.post('/messagereply/:ids',async(ctx)=>{
 
 //留言列表接口（http://localhost:3000/messages）
 router.get('/messages',async(ctx)=>{
-    await sql.findAllMessages()
+    await sql.findAllMessagesD()
         .then(res => {
             ctx.body = {
                 code: 200,
