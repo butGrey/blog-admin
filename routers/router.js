@@ -171,6 +171,10 @@ router.get('/message',async(ctx)=>{
         .then(result => {
             res = result;
         });
+    await sql.findAllMessagesReply()
+        .then(result => {
+            res = result;
+        });
     await ctx.render('message', {
         messages: res
     })
@@ -180,7 +184,10 @@ router.post('/message',async(ctx)=>{
     let name = ctx.request.body.name,
         content = ctx.request.body.content,
         avator = ctx.request.body.avator,
+        postid = ctx.request.body.postid,
+        rpname = ctx.request.body.rpname,
         time = moment().format('YYYY-MM-DD HH:mm:ss');
+
     let base64Data = avator.replace(/^data:image\/\w+;base64,/, ""),
         dataBuffer = new Buffer(base64Data, 'base64'),
         getName = Number(Math.random().toString().substr(3)).toString(36) + Date.now(),
@@ -194,18 +201,34 @@ router.post('/message',async(ctx)=>{
                 console.log('头像上传成功');
             })
         })
-    await sql.insertMessage([name, md.render(content), time, getName + '.png'])
-        .then(() => {
-            ctx.body = {
-                code:200,
-                message:'留言成功'
-            }
-        }).catch(() => {
-            ctx.body = {
-                code: 500,
-                message: '留言失败'
-            }
-        })
+    if(postid){
+        await sql.insertMessageReply([rpname, name, md.render(content), time, postid, getName + '.png'])
+            .then(() => {
+                ctx.body = {
+                    code:200,
+                    message:'留言成功'
+                }
+            }).catch(() => {
+                ctx.body = {
+                    code: 500,
+                    message: '留言失败'
+                }
+            })
+    }else {
+        await sql.insertMessage([name, md.render(content), time, getName + '.png'])
+            .then(() => {
+                ctx.body = {
+                    code:200,
+                    message:'留言成功'
+                }
+            }).catch(() => {
+                ctx.body = {
+                    code: 500,
+                    message: '留言失败'
+                }
+            })
+    }
+
 })
 //留言-删除
 router.post('/message/:ids',async(ctx)=>{
@@ -223,7 +246,22 @@ router.post('/message/:ids',async(ctx)=>{
             }
         })
 })
-
+//留言-回复-删除
+router.post('/messagereply/:ids',async(ctx)=>{
+    let messageReplyId = ctx.params.ids;
+    await sql.deleteMessageReply(messageReplyId)
+        .then(() => {
+            ctx.body = {
+                code: 200,
+                message: '删除留言成功'
+            }
+        }).catch(() => {
+            ctx.body = {
+                code: 500,
+                message: '删除留言失败'
+            }
+        })
+})
 
 
 
@@ -246,7 +284,6 @@ router.get('/messages',async(ctx)=>{
             }
         })
 });
-
 //评论列表接口（http://localhost:3000/comments）
 router.get('/comments/:id',async(ctx)=>{
     let id = ctx.params.id;
@@ -264,7 +301,6 @@ router.get('/comments/:id',async(ctx)=>{
             }
         })
 });
-
 //文章列表接口（http://localhost:3000/articles）
 router.get('/articles',async(ctx)=>{
     await sql.findAllPosts()

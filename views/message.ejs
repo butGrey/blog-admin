@@ -5,8 +5,8 @@
         <input placeholder="请输入评论" id="spContent" name="content" cols="82">
         <div>
             <label>上传头像：</label>
-            <input type="file" name="avator" id="avator">
-            <input type="hidden" id="avatorVal">
+            <input type="file" name="avator" class="avator">
+            <input type="hidden" class="avatorVal">
             <img class="preview" alt="预览头像">
         </div>
         <div class="submit">发表留言</div>
@@ -20,6 +20,24 @@
                     <span><%- messages[i].moment %></span>
                     <p><%- messages[i].content %></p>
                     <a class="delete_comment" href="javascript:delete_message(<%= messages[i].id %>);"> 删除</a>
+                    <div>
+                        <img src="../images/<%= messagereply[i].avator %>" alt="avator">
+                        <span><%- messagereply[i].name %></span>
+                        <span><%- messagereply[i].moment %></span>
+                        <p><%- messagereply[i].content %></p>
+                        <a class="delete_comment" href="javascript:delete_message(<%= messagereply[i].id %>);"> 删除</a>
+                    </div>
+                    <form class="form" method="post" action="/message">
+                        <input placeholder="请输入昵称" type="text" name="name">
+                        <input placeholder="请输入评论" id="spContent" name="content" cols="82">
+                        <div>
+                            <label>上传头像：</label>
+                            <input type="file" name="avator" class="avator">
+                            <input type="hidden" class="avatorVal">
+                            <img class="preview" alt="预览头像">
+                        </div>
+                        <div class="submit">发表留言</div>
+                    </form>
                 </li>
             <% } %>
         </ul>
@@ -34,7 +52,7 @@
             $('.submit').click()
         }
     })
-    $('#avator').change(function(){
+    $('.avator').change(function(){
         if (this.files.length != 0) {
             var file = this.files[0],
                 reader = new FileReader();
