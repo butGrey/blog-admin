@@ -8,9 +8,9 @@ const md = require('markdown-it')();
 const path = require('path');
 
 //主页面展示所有文章
-router.get('/',async(ctx)=>{
+router.get('/art',async(ctx)=>{
     let articles;
-    await sql.findAllPosts()
+    await sql.findAllPostsD()
         .then(res => {
             articles = res
         });
@@ -19,7 +19,7 @@ router.get('/',async(ctx)=>{
     })
 });
 //主页面删改文章
-router.post('/',async(ctx)=>{
+router.post('/art',async(ctx)=>{
     let {id} = ctx.request.body;
     await sql.deletePosts(id)
         .then(()=>{
@@ -41,7 +41,6 @@ router.get('/article_revise/:aid',async(ctx)=>{
     await sql.findDataById(aid)
         .then(result => {
             res = result[0];
-            console.log(res);
         });
     await ctx.render('article_revise', {
         title: res.title,
@@ -74,7 +73,6 @@ router.get('/article_add',async(ctx)=>{
 });
 //添加文章-数据
 router.post('/article_add',async (ctx)=> {
-    console.log(ctx.request.body);
     let {title, category, content} = ctx.request.body;
     let time = moment().format('YYYY-MM-DD HH:mm:ss');
     await  sql.insertPosts([title, category, content, time])
@@ -99,10 +97,9 @@ router.get('/article_detail/:aid',async(ctx)=>{
         .then(result => {
             res = result[0];
         });
-    await sql.findCommentById(aid)
+    await sql.findCommentByIdD(aid)
         .then(result => {
             ress = result;
-            console.log(ress);
         });
     await ctx.render('article_detail', {
         title: res.title,
@@ -112,7 +109,7 @@ router.get('/article_detail/:aid',async(ctx)=>{
         comments: ress
     })
 });
-//查看文章-评论添加
+//评论-添加
 router.post('/article_detail/:aid',async(ctx)=>{
     let name = ctx.request.body.name,
         content = ctx.request.body.content,
@@ -129,11 +126,9 @@ router.post('/article_detail/:aid',async(ctx)=>{
                     reject(false);
                 }
                 reslove(true);
-                console.log('头像上传成功');
             })
         })
     await sql.insertComment([name, md.render(content), time, postId, getName + '.png'])
-    await sql.addPostCommentCount(postId)
         .then(() => {
             ctx.body = {
                 code:200,
@@ -146,7 +141,7 @@ router.post('/article_detail/:aid',async(ctx)=>{
             }
         })
 })
-//查看文章-评论删除
+//评论-删除
 router.post('/article_detail/:aid/comment_delete/:ids',async(ctx)=>{
     let postId = ctx.params.id,
         commentId = ctx.params.ids;
@@ -224,7 +219,6 @@ router.post('/message',async(ctx)=>{
                 }
             })
     }
-
 })
 //留言-删除
 router.post('/message/:ids',async(ctx)=>{
@@ -283,7 +277,7 @@ router.get('/messages',async(ctx)=>{
 //评论列表接口（http://localhost:3000/comments）
 router.get('/comments/:id',async(ctx)=>{
     let id = ctx.params.id;
-    await sql.findCommentById(id)
+    await sql.findCommentByIdD(id)
         .then(res => {
             ctx.body = {
                 code: 200,
@@ -299,7 +293,7 @@ router.get('/comments/:id',async(ctx)=>{
 });
 //文章列表接口（http://localhost:3000/articles）
 router.get('/articles',async(ctx)=>{
-    await sql.findAllPosts()
+    await sql.findAllPostsD()
         .then(res => {
             ctx.body = {
                 code: 200,

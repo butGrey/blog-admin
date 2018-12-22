@@ -36,9 +36,7 @@
 
 </div>
 <script type="text/javascript">
-
     $(window).keyup(function (e) {
-        //console.log(e.keyCode)
         if (e.keyCode == 13) {
             $('.submit').click()
         }
@@ -57,7 +55,7 @@
             // 	return
             // }
             if (!/image/g.test(file.type)) {
-                fade("请上传图片文件!")
+                alert("请上传图片文件!")
                 $('#avatorVal').val('')
                 $('form .preview').attr('src', '')
                 $('form .preview').fadeOut()
@@ -86,11 +84,11 @@
     $('.submit').click(function(){
         // console.log($('.form').serialize())
         if ($('input[name=name]').val().trim() == '') {
-            fade('请输入用户名！')
+            alert('请输入用户名！')
         }else if($('input[name=name]').val().match(/[<'">]/g)){
-            fade('请输入合法字符！')
+            alert('请输入合法字符！')
         }else if($('#avatorVal').val() == ''){
-            fade('请上传头像！')
+            alert('请上传头像！')
         }else{
             $.ajax({
                 url: '/article_detail/' + location.pathname.split('/')[2],
@@ -104,13 +102,12 @@
                 dataType: 'json',
                 success: function (msg) {
                     if(msg.code == 200){
-                        console.log('评论成功')
+                        alert('评论成功')
                         setTimeout(function(){
                             window.location.reload()
-                        },1000)
-
+                        },500)
                     }else{
-                        console.log(msg.message)
+                        console.log(msg)
                     }
                 },
                 error: function () {
