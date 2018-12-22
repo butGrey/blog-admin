@@ -72,7 +72,7 @@ router.get('/article_add',async(ctx)=>{
     await ctx.render('article_add');
 });
 //添加文章-数据
-router.post('/article_add',async (ctx)=> {
+router.post('/article_adds',async (ctx)=> {
     let {title, category, content} = ctx.request.body;
     let time = moment().format('YYYY-MM-DD HH:mm:ss');
     await  sql.insertPosts([title, category, content, time])
@@ -162,7 +162,7 @@ router.post('/article_detail/:aid/comment_delete/:ids',async(ctx)=>{
 //留言-查看
 router.get('/message',async(ctx)=>{
     let res,ress;
-    await sql.findAllMessages()
+    await sql.findAllMessagesD()
         .then(result => {
             res = result;
         });

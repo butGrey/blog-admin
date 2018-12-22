@@ -46,31 +46,27 @@
     };
     editor2.create();
     $text1.val(editor2.txt.html())
-
-    $(document).ready(function () {
-        $("#artsubm").click(function () {
-            $.ajax({
-                type: 'post',
-                url: "/article_add",
-                data: $("#form2").serialize(),
-                dataType: "json",
-                success: function (msg) {
-                    if (msg.code == 200){
-                        console.log("上传成功！");
-                        setTimeout(function () {
-                            window.location.href = "/"
-                        },1000)
-                    }else{
-                        console.log("上传失败！");
-                    }
-                },
-                error: function () {
-                    alert("异常");
+    $("#artsubm").click(function () {
+        $.ajax({
+            type: 'post',
+            url: "/article_adds",
+            data: $("#form2").serialize(),
+            dataType: "json",
+            success: function (msg) {
+                if (msg.code == 200){
+                    alert("上传成功！");
+                    window.location.href = "/art";
+                }else{
+                    alert("上传失败！");
                 }
-            });
-            console.log($("#form2").serialize());
-        })
+            },
+            error: function () {
+                alert("异常");
+            }
+        });
+        console.log($("#form2").serialize());
     })
+
 </script>
 
 </body>
