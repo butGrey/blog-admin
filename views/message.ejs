@@ -32,7 +32,7 @@
                         </div>
                         <div class="submit3" onclick="add_messagereply(<%=messages[i].id%>,'<%=messages[i].name%>')">提交</div>
                     </form>
-                    <ul style="margin: 10px;border: 1px solid rebeccapurple;">
+                    <ul style="margin: 10px;border: 1px solid red;">
                         <% for (var j=0;j<messagereply.length;j++){%>
                         <%if(messages[i].id== messagereply[j].postid){%>
                             <li>
@@ -40,7 +40,7 @@
                                 <span><%- messagereply[j].name %></span>
                                 <span><%- messagereply[j].moment %></span>
                                 <p><%- messagereply[j].content %></p>
-                                <a class="delete_comment" href="javascript:delete_message(<%= messagereply[j].id %>);"> 删除</a>
+                                <a class="delete_comment" href="javascript:delete_messagereply(<%= messagereply[j].id %>);"> 删除</a>
                                 <div class="submit4">回复</div>
                                 <form class="form form3" method="post" action="/message">
                                     <input placeholder="请输入昵称" type="text" name="rnames">
@@ -143,6 +143,27 @@
     function delete_message(ids) {
         $.ajax({
             url: '/message/' + ids,
+            type: 'POST',
+            cache: false,
+            success: function (msg) {
+                if (msg.code == 200) {
+                    console.log('删除留言成功');
+                    setTimeout(function() {
+                        location.reload()
+                    }, 1000)
+                } else {
+                    console.log('删除留言失败');
+                }
+            },
+            error: function () {
+                alert('异常')
+            }
+        })
+    }
+    // 删除评论
+    function delete_messagereply(ids) {
+        $.ajax({
+            url: '/messagereply/' + ids,
             type: 'POST',
             cache: false,
             success: function (msg) {

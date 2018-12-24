@@ -229,6 +229,18 @@ router.post('/message',async(ctx)=>{
 //留言-删除
 router.post('/message/:ids',async(ctx)=>{
     let messageId = ctx.params.ids;
+    await sql.deleteMessageReplys(messageId)
+        .then(() => {
+            ctx.body = {
+                code: 200,
+                message: '删除子留言成功'
+            }
+        }).catch(() => {
+            ctx.body = {
+                code: 500,
+                message: '删除子留言失败'
+            }
+        })
     await sql.deleteMessage(messageId)
         .then(() => {
             ctx.body = {

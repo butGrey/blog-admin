@@ -64,3 +64,6 @@ header{
 .form2,.form3{
     display: none;
 }
+.submit3,.submit,.submit2,.submit4,.submit5{
+    color: blue;
+}
