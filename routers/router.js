@@ -166,8 +166,14 @@ router.get('/message',async(ctx)=>{
         .then(result => {
             res = result;
         });
+    await sql.findAllMessagesReply()
+        .then(result => {
+            ress = result;
+            console.log(ress)
+        });
     await ctx.render('message', {
-        messages: res
+        messages: res,
+        messagereply:ress
     })
 });
 //留言-添加
@@ -175,7 +181,7 @@ router.post('/message',async(ctx)=>{
     let name = ctx.request.body.name,
         content = ctx.request.body.content,
         avator = ctx.request.body.avator,
-        postid = '',
+        postid = ctx.request.body.postid,
         rpname = ctx.request.body.rpname,
         time = moment().format('YYYY-MM-DD HH:mm:ss');
 

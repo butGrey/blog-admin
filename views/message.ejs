@@ -9,10 +9,10 @@
             <input type="hidden" class="avatorVal">
             <img class="preview" alt="预览头像">
         </div>
-        <div class="submit">发表留言</div>
+        <div class="submit">留言</div>
     </form>
     <div>
-        <ul>
+        <ul style="border: 1px solid rebeccapurple;">
             <% for (var i=0;i<messages.length;i++){%>
                 <li>
                     <img src="../images/<%= messages[i].avator %>" alt="avator">
@@ -20,15 +20,49 @@
                     <span><%- messages[i].moment %></span>
                     <p><%- messages[i].content %></p>
                     <a class="delete_comment" href="javascript:delete_message(<%= messages[i].id %>);"> 删除</a>
-
+                    <div class="submit2">评论</div>
+                    <form class="form form2" method="post" action="/message">
+                        <input placeholder="请输入昵称" type="text" name="rname">
+                        <input placeholder="请输入评论" name="rcontent" cols="82">
+                        <div>
+                            <label>上传头像：</label>
+                            <input type="file" name="ravator" class="ravator">
+                            <input type="hidden" class="ravatorVal">
+                            <img class="rpreview" alt="预览头像">
+                        </div>
+                        <div class="submit3" onclick="add_messagereply(<%=messages[i].id%>,'<%=messages[i].name%>')">提交</div>
+                    </form>
+                    <ul style="margin: 10px;border: 1px solid rebeccapurple;">
+                        <% for (var j=0;j<messagereply.length;j++){%>
+                        <%if(messages[i].id== messagereply[j].postid){%>
+                            <li>
+                                <img src="../images/<%= messagereply[j].avator %>" alt="avator">
+                                <span><%- messagereply[j].name %></span>
+                                <span><%- messagereply[j].moment %></span>
+                                <p><%- messagereply[j].content %></p>
+                                <a class="delete_comment" href="javascript:delete_message(<%= messagereply[j].id %>);"> 删除</a>
+                                <div class="submit4">回复</div>
+                                <form class="form form3" method="post" action="/message">
+                                    <input placeholder="请输入昵称" type="text" name="rnames">
+                                    <input placeholder="请输入评论" name="rcontents" cols="82">
+                                    <div>
+                                        <label>上传头像：</label>
+                                        <input type="file" name="ravators" class="ravators">
+                                        <input type="hidden" class="ravatorVals">
+                                        <img class="rpreviews" alt="预览头像">
+                                    </div>
+                                    <div class="submit5" onclick="add_messagereplys(<%=messages[i].id%>,'<%=messagereply[j].name%>')">提交</div>
+                                </form>
+                            </li>
+                        <%}%>
+                        <%}%>
+                    </ul>
                 </li>
             <% } %>
         </ul>
     </div>
-
 </div>
 <script type="text/javascript">
-
     $(window).keyup(function (e) {
         //console.log(e.keyCode)
         if (e.keyCode == 13) {
@@ -45,7 +79,7 @@
             };
             console.log(file.size,file.type)
             if (!/image/g.test(file.type)) {
-                fade("请上传图片文件!")
+                alert("请上传图片文件!")
                 $('.avatorVal').val('')
                 $('form .preview').attr('src', '')
                 $('form .preview').fadeOut()
@@ -74,11 +108,11 @@
     $('.submit').click(function(){
         // console.log($('.form').serialize())
         if ($('input[name=name]').val().trim() == '') {
-            fade('请输入用户名！')
+            alert('请输入用户名！')
         }else if($('input[name=name]').val().match(/[<'">]/g)){
-            fade('请输入合法字符！')
+            alert('请输入合法字符！')
         }else if($('.avatorVal').val() == ''){
-            fade('请上传头像！')
+            alert('请上传头像！')
         }else{
             $.ajax({
                 url: '/message',
@@ -126,7 +160,156 @@
             }
         })
     }
+    $('.submit2').click(function(event){
+        $(this).next('form').css('display','block');
+    })
+    $('.submit4').click(function(event){
+        $(this).next('form').css('display','block');
+    })
+    $('.ravator').change(function(){
+        if (this.files.length != 0) {
+            var file = this.files[0],
+                reader = new FileReader();
+            if (!reader) {
+                this.value = '';
+                return;
+            };
+            console.log(file.size,file.type)
+            if (!/image/g.test(file.type)) {
+                alert("请上传图片文件!")
+                $('.ravatorVal').val('')
+                $('form .rpreview').attr('src', '')
+                $('form .rpreview').fadeOut()
+                return
+            }
+            reader.onload = function (e) {
+                this.value = '';
+                $('form .rpreview').attr('src', e.target.result)
+                $('form .rpreview').fadeIn()
+                var image = new Image();
+                image.onload = function(){
+                    var canvas = document.createElement('canvas');
+                    var ctx = canvas.getContext("2d");
+                    canvas.width = 100;
+                    canvas.height = 100;
+                    ctx.clearRect(0, 0, 100, 100);
+                    ctx.drawImage(image, 0, 0, 100, 100);
+                    var blob = canvas.toDataURL("image/png");
+                    $('.ravatorVal').val(blob)
+                }
+                image.src = e.target.result
+            };
+            reader.readAsDataURL(file);
+        };
+    })
+    $('.ravators').change(function(){
+        if (this.files.length != 0) {
+            var file = this.files[0],
+                reader = new FileReader();
+            if (!reader) {
+                this.value = '';
+                return;
+            };
+            console.log(file.size,file.type)
+            if (!/image/g.test(file.type)) {
+                alert("请上传图片文件!")
+                $('.ravatorVals').val('')
+                $('form .rpreviews').attr('src', '')
+                $('form .rpreviews').fadeOut()
+                return
+            }
+            reader.onload = function (e) {
+                this.value = '';
+                $('form .rpreviews').attr('src', e.target.result)
+                $('form .rpreviews').fadeIn()
+                var image = new Image();
+                image.onload = function(){
+                    var canvas = document.createElement('canvas');
+                    var ctx = canvas.getContext("2d");
+                    canvas.width = 100;
+                    canvas.height = 100;
+                    ctx.clearRect(0, 0, 100, 100);
+                    ctx.drawImage(image, 0, 0, 100, 100);
+                    var blob = canvas.toDataURL("image/png");
+                    $('.ravatorVals').val(blob)
+                }
+                image.src = e.target.result
+            };
+            reader.readAsDataURL(file);
+        };
+    })
+    function add_messagereply(pi,rn) {
+        if ($('input[name=rname]').val().trim() == '') {
+            alert('请输入用户名！')
+        }else if($('input[name=rname]').val().match(/[<'">]/g)){
+            alert('请输入合法字符！')
+        }else if($('.ravatorVal').val() == ''){
+            alert('请上传头像！')
+        }else{
+            $.ajax({
+                url: '/message',
+                data: {
+                    name: $('input[name=rname]').val(),
+                    content: $('input[name=rcontent]').val(),
+                    avator: $('.ravatorVal').val(),
+                    rpname: rn,
+                    postid: pi
+                },
+                type: "POST",
+                cache: false,
+                dataType: 'json',
+                success: function (msg) {
+                    if(msg.code == 200){
+                        setTimeout(function(){
+                            window.location.reload()
+                        },1000)
+                    }else{
+                        console.log(msg.message)
+                    }
+                },
+                error: function () {
+                    alert('异常');
+                }
+            })
+        }
 
+    }
+    function add_messagereplys(pi,rn) {
+        if ($('input[name=rnames]').val().trim() == '') {
+            alert('请输入用户名！')
+        }else if($('input[name=rnames]').val().match(/[<'">]/g)){
+            alert('请输入合法字符！')
+        }else if($('.ravatorVals').val() == ''){
+            alert('请上传头像！')
+        }else{
+            $.ajax({
+                url: '/message',
+                data: {
+                    name: $('input[name=rnames]').val(),
+                    content: $('input[name=rcontents]').val(),
+                    avator: $('.ravatorVals').val(),
+                    rpname: rn,
+                    postid: pi
+                },
+                type: "POST",
+                cache: false,
+                dataType: 'json',
+                success: function (msg) {
+                    if(msg.code == 200){
+                        setTimeout(function(){
+                            window.location.reload()
+                        },1000)
+                    }else{
+                        console.log(msg.message)
+                    }
+                },
+                error: function () {
+                    alert('异常');
+                }
+            })
+        }
+
+    }
 </script>
 
 </body>
