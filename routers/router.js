@@ -92,7 +92,8 @@ router.post('/article_adds',async (ctx)=> {
 router.get('/article_detail/:aid',async(ctx)=>{
     let aid = ctx.params.aid,
         res,
-        ress;
+        ress,
+        resss;
     await sql.findDataById(aid)
         .then(result => {
             res = result[0];
@@ -101,12 +102,17 @@ router.get('/article_detail/:aid',async(ctx)=>{
         .then(result => {
             ress = result;
         });
+    await sql.findCommentsReplyById(aid)
+        .then(result => {
+            resss = result;
+        });
     await ctx.render('article_detail', {
         title: res.title,
         content: res.content,
         category: res.category,
         id: res.id,
-        comments: ress
+        comments: ress,
+        commentreply: resss
     })
 });
 //评论-添加
@@ -115,6 +121,8 @@ router.post('/article_detail/:aid',async(ctx)=>{
         content = ctx.request.body.content,
         avator = ctx.request.body.avator,
         postId = ctx.params.aid,
+        commentid = ctx.request.body.commentid,
+        rpname = ctx.request.body.rpname,
         time = moment().format('YYYY-MM-DD HH:mm:ss');
     let base64Data = avator.replace(/^data:image\/\w+;base64,/, ""),
         dataBuffer = new Buffer(base64Data, 'base64'),
@@ -128,24 +136,52 @@ router.post('/article_detail/:aid',async(ctx)=>{
                 reslove(true);
             })
         })
-    await sql.insertComment([name, md.render(content), time, postId, getName + '.png'])
-        .then(() => {
-            ctx.body = {
-                code:200,
-                message:'评论成功'
-            }
-        }).catch(() => {
-            ctx.body = {
-                code: 500,
-                message: '评论失败'
-            }
-        })
+    if(commentid){
+        await sql.insertCommentReply([rpname, commentid, name, md.render(content), time, postId, getName + '.png'])
+            .then(() => {
+                ctx.body = {
+                    code:200,
+                    message:'评论成功'
+                }
+            }).catch(() => {
+                ctx.body = {
+                    code: 500,
+                    message: '评论失败'
+                }
+            })
+    }else{
+        await sql.insertComment([name, md.render(content), time, postId, getName + '.png'])
+            .then(() => {
+                ctx.body = {
+                    code:200,
+                    message:'评论成功'
+                }
+            }).catch(() => {
+                ctx.body = {
+                    code: 500,
+                    message: '评论失败'
+                }
+            })
+    }
+
 })
 //评论-删除
 router.post('/article_detail/:aid/comment_delete/:ids',async(ctx)=>{
     let postId = ctx.params.id,
         commentId = ctx.params.ids;
     await sql.deleteComment(commentId)
+        .then(() => {
+            ctx.body = {
+                code: 200,
+                message: '删除子评论成功'
+            }
+        }).catch(() => {
+            ctx.body = {
+                code: 500,
+                message: '删除子评论失败'
+            }
+        })
+    await sql.deleteCommentReplys(commentId)
         .then(() => {
             ctx.body = {
                 code: 200,
@@ -158,7 +194,24 @@ router.post('/article_detail/:aid/comment_delete/:ids',async(ctx)=>{
             }
         })
 })
-
+//评论-回复-删除
+router.post('/article_detail/:aid/commentreply_delete/:id',async(ctx)=>{
+    let postId = ctx.params.aid,
+        commentreplyId = ctx.params.id;
+    console.log(commentreplyId)
+    await sql.deleteCommentReply(commentreplyId)
+        .then(() => {
+            ctx.body = {
+                code: 200,
+                message: '删除评论成功'
+            }
+        }).catch(() => {
+            ctx.body = {
+                code: 500,
+                message: '删除评论失败'
+            }
+        })
+})
 //留言-查看
 router.get('/message',async(ctx)=>{
     let res,ress;
