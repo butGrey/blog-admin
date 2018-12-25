@@ -3,13 +3,13 @@
     <form class="form" method="post" action="/message">
         <input placeholder="请输入昵称" type="text" name="name">
         <input placeholder="请输入评论" id="spContent" name="content" cols="82">
-        <div>
+
             <label>上传头像：</label>
-            <input type="file" name="avator" class="avator">
+            <input type="file" name="avator" class="avator" onchange="submitimg(event,this)">
             <input type="hidden" class="avatorVal">
             <img class="preview" alt="预览头像">
-        </div>
-        <div class="submit">留言</div>
+
+        <div class="submit" onclick="submitmsg('','',event)">留言</div>
     </form>
     <div>
         <ul style="border: 1px solid rebeccapurple;">
@@ -20,17 +20,17 @@
                     <span><%- messages[i].moment %></span>
                     <p><%- messages[i].content %></p>
                     <a class="delete_comment" href="javascript:delete_message(<%= messages[i].id %>);"> 删除</a>
-                    <div class="submit2">评论</div>
+                    <div class="show">评论</div>
                     <form class="form form2" method="post" action="/message">
-                        <input placeholder="请输入昵称" type="text" name="rname">
-                        <input placeholder="请输入评论" name="rcontent" cols="82">
-                        <div>
+                        <input placeholder="请输入昵称" type="text" name="name">
+                        <input placeholder="请输入评论" name="content" cols="82">
+
                             <label>上传头像：</label>
-                            <input type="file" name="ravator" class="ravator">
-                            <input type="hidden" class="ravatorVal">
-                            <img class="rpreview" alt="预览头像">
-                        </div>
-                        <div class="submit3" onclick="add_messagereply(<%=messages[i].id%>,'<%=messages[i].name%>')">提交</div>
+                            <input type="file" name="avator" class="avator" onchange="submitimg(event,this)">
+                            <input type="hidden" class="avatorVal">
+                            <img class="preview" alt="预览头像">
+
+                        <div class="submit3" onclick="submitmsg(<%=messages[i].id%>,'<%=messages[i].name%>',event)">提交</div>
                     </form>
                     <ul style="margin: 10px;border: 1px solid red;">
                         <% for (var j=0;j<messagereply.length;j++){%>
@@ -41,17 +41,17 @@
                                 <span><%- messagereply[j].moment %></span>
                                 <p><%- messagereply[j].content %></p>
                                 <a class="delete_comment" href="javascript:delete_messagereply(<%= messagereply[j].id %>);"> 删除</a>
-                                <div class="submit4">回复</div>
+                                <div class="show">回复</div>
                                 <form class="form form3" method="post" action="/message">
-                                    <input placeholder="请输入昵称" type="text" name="rnames">
-                                    <input placeholder="请输入评论" name="rcontents" cols="82">
-                                    <div>
+                                    <input placeholder="请输入昵称" type="text" name="name">
+                                    <input placeholder="请输入评论" name="content" cols="82">
+
                                         <label>上传头像：</label>
-                                        <input type="file" name="ravators" class="ravators">
-                                        <input type="hidden" class="ravatorVals">
-                                        <img class="rpreviews" alt="预览头像">
-                                    </div>
-                                    <div class="submit5" onclick="add_messagereplys(<%=messages[i].id%>,'<%=messagereply[j].name%>')">提交</div>
+                                        <input type="file" name="avator" class="avator" onchange="submitimg(event,this)">
+                                        <input type="hidden" class="avatorVal">
+                                        <img class="preview" alt="预览头像">
+
+                                    <div class="submit5" onclick="submitmsg(<%=messages[i].id%>,'<%=messagereply[j].name%>',event)">提交</div>
                                 </form>
                             </li>
                         <%}%>
@@ -63,32 +63,26 @@
     </div>
 </div>
 <script type="text/javascript">
-    $(window).keyup(function (e) {
-        //console.log(e.keyCode)
-        if (e.keyCode == 13) {
-            $('.submit').click()
-        }
-    })
-    $('.avator').change(function(){
-        if (this.files.length != 0) {
-            var file = this.files[0],
+    function submitimg(event,obj) {
+        if (obj.files.length != 0) {
+            var file = obj.files[0],
                 reader = new FileReader();
             if (!reader) {
-                this.value = '';
+                obj.value = '';
                 return;
             };
             console.log(file.size,file.type)
             if (!/image/g.test(file.type)) {
                 alert("请上传图片文件!")
-                $('.avatorVal').val('')
-                $('form .preview').attr('src', '')
-                $('form .preview').fadeOut()
+                $(obj).siblings('.avatorVal').val('')
+                $(obj).siblings('form .preview').attr('src', '')
+                $(obj).siblings('form .preview').fadeOut()
                 return
             }
             reader.onload = function (e) {
-                this.value = '';
-                $('form .preview').attr('src', e.target.result)
-                $('form .preview').fadeIn()
+                obj.value = '';
+                $(obj).siblings('form .preview').attr('src', e.target.result)
+                $(obj).siblings('form .preview').fadeIn()
                 var image = new Image();
                 image.onload = function(){
                     var canvas = document.createElement('canvas');
@@ -98,28 +92,29 @@
                     ctx.clearRect(0, 0, 100, 100);
                     ctx.drawImage(image, 0, 0, 100, 100);
                     var blob = canvas.toDataURL("image/png");
-                    $('.avatorVal').val(blob)
+                    $(obj).siblings('.avatorVal').val(blob)
                 }
                 image.src = e.target.result
             };
             reader.readAsDataURL(file);
-        };
-    })
-    $('.submit').click(function(){
-        // console.log($('.form').serialize())
-        if ($('input[name=name]').val().trim() == '') {
+        }
+    }
+    function submitmsg(pi,rn,event) {
+        if ($(event.currentTarget).siblings('input[name=name]').val().trim() == '') {
             alert('请输入用户名！')
-        }else if($('input[name=name]').val().match(/[<'">]/g)){
+        }else if($(event.currentTarget).siblings('input[name=name]').val().match(/[<'">]/g)){
             alert('请输入合法字符！')
-        }else if($('.avatorVal').val() == ''){
+        }else if($(event.currentTarget).siblings('.avatorVal').val() == ''){
             alert('请上传头像！')
         }else{
             $.ajax({
                 url: '/message',
                 data: {
-                    name: $('input[name=name]').val(),
-                    content: $('input[name=content]').val(),
-                    avator: $('.avatorVal').val()
+                    name: $(event.currentTarget).siblings('input[name=name]').val(),
+                    content: $(event.currentTarget).siblings('input[name=content]').val(),
+                    avator: $(event.currentTarget).siblings('.avatorVal').val(),
+                    rpname: rn,
+                    postid: pi
                 },
                 type: "POST",
                 cache: false,
@@ -138,7 +133,8 @@
                 }
             })
         }
-    })
+
+    }
     // 删除评论
     function delete_message(ids) {
         $.ajax({
@@ -160,7 +156,6 @@
             }
         })
     }
-    // 删除评论
     function delete_messagereply(ids) {
         $.ajax({
             url: '/messagereply/' + ids,
@@ -181,156 +176,9 @@
             }
         })
     }
-    $('.submit2').click(function(event){
+    $('.show').click(function(){
         $(this).next('form').css('display','block');
     })
-    $('.submit4').click(function(event){
-        $(this).next('form').css('display','block');
-    })
-    $('.ravator').change(function(){
-        if (this.files.length != 0) {
-            var file = this.files[0],
-                reader = new FileReader();
-            if (!reader) {
-                this.value = '';
-                return;
-            };
-            console.log(file.size,file.type)
-            if (!/image/g.test(file.type)) {
-                alert("请上传图片文件!")
-                $('.ravatorVal').val('')
-                $('form .rpreview').attr('src', '')
-                $('form .rpreview').fadeOut()
-                return
-            }
-            reader.onload = function (e) {
-                this.value = '';
-                $('form .rpreview').attr('src', e.target.result)
-                $('form .rpreview').fadeIn()
-                var image = new Image();
-                image.onload = function(){
-                    var canvas = document.createElement('canvas');
-                    var ctx = canvas.getContext("2d");
-                    canvas.width = 100;
-                    canvas.height = 100;
-                    ctx.clearRect(0, 0, 100, 100);
-                    ctx.drawImage(image, 0, 0, 100, 100);
-                    var blob = canvas.toDataURL("image/png");
-                    $('.ravatorVal').val(blob)
-                }
-                image.src = e.target.result
-            };
-            reader.readAsDataURL(file);
-        };
-    })
-    $('.ravators').change(function(){
-        if (this.files.length != 0) {
-            var file = this.files[0],
-                reader = new FileReader();
-            if (!reader) {
-                this.value = '';
-                return;
-            };
-            console.log(file.size,file.type)
-            if (!/image/g.test(file.type)) {
-                alert("请上传图片文件!")
-                $('.ravatorVals').val('')
-                $('form .rpreviews').attr('src', '')
-                $('form .rpreviews').fadeOut()
-                return
-            }
-            reader.onload = function (e) {
-                this.value = '';
-                $('form .rpreviews').attr('src', e.target.result)
-                $('form .rpreviews').fadeIn()
-                var image = new Image();
-                image.onload = function(){
-                    var canvas = document.createElement('canvas');
-                    var ctx = canvas.getContext("2d");
-                    canvas.width = 100;
-                    canvas.height = 100;
-                    ctx.clearRect(0, 0, 100, 100);
-                    ctx.drawImage(image, 0, 0, 100, 100);
-                    var blob = canvas.toDataURL("image/png");
-                    $('.ravatorVals').val(blob)
-                }
-                image.src = e.target.result
-            };
-            reader.readAsDataURL(file);
-        };
-    })
-    function add_messagereply(pi,rn) {
-        if ($('input[name=rname]').val().trim() == '') {
-            alert('请输入用户名！')
-        }else if($('input[name=rname]').val().match(/[<'">]/g)){
-            alert('请输入合法字符！')
-        }else if($('.ravatorVal').val() == ''){
-            alert('请上传头像！')
-        }else{
-            $.ajax({
-                url: '/message',
-                data: {
-                    name: $('input[name=rname]').val(),
-                    content: $('input[name=rcontent]').val(),
-                    avator: $('.ravatorVal').val(),
-                    rpname: rn,
-                    postid: pi
-                },
-                type: "POST",
-                cache: false,
-                dataType: 'json',
-                success: function (msg) {
-                    if(msg.code == 200){
-                        setTimeout(function(){
-                            window.location.reload()
-                        },1000)
-                    }else{
-                        console.log(msg.message)
-                    }
-                },
-                error: function () {
-                    alert('异常');
-                }
-            })
-        }
-
-    }
-    function add_messagereplys(pi,rn) {
-        if ($('input[name=rnames]').val().trim() == '') {
-            alert('请输入用户名！')
-        }else if($('input[name=rnames]').val().match(/[<'">]/g)){
-            alert('请输入合法字符！')
-        }else if($('.ravatorVals').val() == ''){
-            alert('请上传头像！')
-        }else{
-            $.ajax({
-                url: '/message',
-                data: {
-                    name: $('input[name=rnames]').val(),
-                    content: $('input[name=rcontents]').val(),
-                    avator: $('.ravatorVals').val(),
-                    rpname: rn,
-                    postid: pi
-                },
-                type: "POST",
-                cache: false,
-                dataType: 'json',
-                success: function (msg) {
-                    if(msg.code == 200){
-                        setTimeout(function(){
-                            window.location.reload()
-                        },1000)
-                    }else{
-                        console.log(msg.message)
-                    }
-                },
-                error: function () {
-                    alert('异常');
-                }
-            })
-        }
-
-    }
 </script>
 
 </body>

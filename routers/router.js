@@ -199,6 +199,7 @@ router.post('/message',async(ctx)=>{
             })
         })
     if(postid){
+        debugger;
         await sql.insertMessageReply([rpname, name, md.render(content), time, postid, getName + '.png'])
             .then(() => {
                 ctx.body = {
@@ -212,6 +213,7 @@ router.post('/message',async(ctx)=>{
                 }
             })
     }else {
+        debugger;
         await sql.insertMessage([name, md.render(content), time, getName + '.png'])
             .then(() => {
                 ctx.body = {
