@@ -383,6 +383,7 @@ router.get('/comments/:id',async(ctx)=>{
 //评论列表接口（http://localhost:3000/comments）
 router.get('/commentreplys/:id',async(ctx)=>{
     let id = ctx.params.id;
+    console.log(id)
     await sql.findCommentsReplyById(id)
         .then(res => {
             ctx.body = {
