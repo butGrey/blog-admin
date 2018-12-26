@@ -347,10 +347,43 @@ router.get('/messages',async(ctx)=>{
             }
         })
 });
+//留言列表接口（http://localhost:3000/messages）
+router.get('/messagereplys',async(ctx)=>{
+    await sql.findAllMessagesReply()
+        .then(res => {
+            ctx.body = {
+                code: 200,
+                data: res,
+                message:'获取列表成功'
+            };
+        }).catch(err=>{
+            ctx.body = {
+                code: 500,
+                message: '获取列表失败'
+            }
+        })
+});
 //评论列表接口（http://localhost:3000/comments）
 router.get('/comments/:id',async(ctx)=>{
     let id = ctx.params.id;
     await sql.findCommentByIdD(id)
+        .then(res => {
+            ctx.body = {
+                code: 200,
+                data: res,
+                message:'获取列表成功'
+            };
+        }).catch(err=>{
+            ctx.body = {
+                code: 500,
+                message: '获取列表失败'
+            }
+        })
+});
+//评论列表接口（http://localhost:3000/comments）
+router.get('/commentreplys/:id',async(ctx)=>{
+    let id = ctx.params.id;
+    await sql.findCommentsReplyById(id)
         .then(res => {
             ctx.body = {
                 code: 200,
