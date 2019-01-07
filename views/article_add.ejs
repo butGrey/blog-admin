@@ -15,7 +15,7 @@
             <div id="div3"></div>
             <textarea style="height: 0px;width: 0px;" placeholder="请输入内容" name="content" id="text1" cols="42" rows="10"></textarea>
         </div>
-        <button id="artsubm" type="submit">发表</button>
+        <button type="submit" onclick="add_article()">发表</button>
     </form>
 </div>
 
@@ -46,10 +46,10 @@
     };
     editor2.create();
     $text1.val(editor2.txt.html())
-    $("#artsubm").click(function () {
+    function add_article() {
         $.ajax({
             type: 'post',
-            url: "/article_adds",
+            url: '/article_adds',
             data: $("#form2").serialize(),
             dataType: "json",
             success: function (msg) {
@@ -65,7 +65,7 @@
             }
         });
         console.log($("#form2").serialize());
-    })
+    }
 
 </script>
 
