@@ -4,8 +4,11 @@ const config = require('../config/default.js');
 const sql = require('../lib/mysql.js');
 const moment = require('moment');
 const fs = require('fs');
+const md5 = require('md5');
 const md = require('markdown-it')();
 const path = require('path');
+const checkNotLogin = require('../middlewares/check.js').checkNotLogin
+const checkLogin = require('../middlewares/check.js').checkLogin
 
 //主页面展示所有文章
 router.get('/art',async(ctx)=>{
@@ -252,7 +255,6 @@ router.post('/message',async(ctx)=>{
             })
         })
     if(postid){
-        debugger;
         await sql.insertMessageReply([rpname, name, md.render(content), time, postid, getName + '.png'])
             .then(() => {
                 ctx.body = {
@@ -266,7 +268,6 @@ router.post('/message',async(ctx)=>{
                 }
             })
     }else {
-        debugger;
         await sql.insertMessage([name, md.render(content), time, getName + '.png'])
             .then(() => {
                 ctx.body = {
@@ -326,14 +327,71 @@ router.post('/messagereply/:ids',async(ctx)=>{
         })
 })
 
+//用户-查看
+router.get('/user',async(ctx)=>{
+    let res;
+    await sql.findAllUser()
+        .then(result => {
+            res = result;
+        });
+    await ctx.render('user', {
+        users: res
+    })
+});
+//用户-添加
+router.post('/user',async(ctx)=>{
+    let name = ctx.request.body.name,
+        content = ctx.request.body.content,
+        avator = ctx.request.body.avator,
+        email = ctx.request.body.email,
+        url = ctx.request.body.url,
+        time = moment().format('YYYY-MM-DD HH:mm:ss');
 
-
-
-
-
-//留言列表接口（http://localhost:3000/messages）
-router.get('/messages',async(ctx)=>{
-    await sql.findAllMessagesD()
+    let base64Data = avator.replace(/^data:image\/\w+;base64,/, ""),
+        dataBuffer = new Buffer(base64Data, 'base64'),
+        getName = Number(Math.random().toString().substr(3)).toString(36) + Date.now(),
+        upload = await new Promise((reslove, reject) => {
+            fs.writeFile('./public/images/' + getName + '.png', dataBuffer, err => {
+                if (err) {
+                    throw err;
+                    reject(false);
+                }
+                reslove(true);
+                console.log('头像上传成功');
+            })
+        })
+    await sql.insertUser([name, md.render(content), time, email, url, getName + '.png'])
+        .then(() => {
+            ctx.body = {
+                code:200,
+                message:'留言成功'
+            }
+        }).catch(() => {
+            ctx.body = {
+                code: 500,
+                message: '留言失败'
+            }
+        })
+});
+//用户-删除
+router.post('/user/:ids',async(ctx)=>{
+    let messageId = ctx.params.ids;
+    await sql.deleteUser(messageId)
+        .then(() => {
+            ctx.body = {
+                code: 200,
+                message: '删除子留言成功'
+            }
+        }).catch(() => {
+            ctx.body = {
+                code: 500,
+                message: '删除子留言失败'
+            }
+        })
+})
+//用户列表接口（http://localhost:3000/users）
+router.get('/users',async(ctx)=>{
+    await sql.findAllUser()
         .then(res => {
             ctx.body = {
                 code: 200,
@@ -348,6 +406,23 @@ router.get('/messages',async(ctx)=>{
         })
 });
 //留言列表接口（http://localhost:3000/messages）
+router.get('/messages',async(ctx)=>{
+    await sql.findAllMessagesD()
+        .then(res => {
+            debugger
+            ctx.body = {
+                code: 200,
+                data: res,
+                message:'获取列表成功'
+            };
+        }).catch(err=>{
+            ctx.body = {
+                code: 500,
+                message: '获取列表失败'
+            }
+        })
+});
+//留言回复接口（http://localhost:3000/messagereplys）
 router.get('/messagereplys',async(ctx)=>{
     await sql.findAllMessagesReply()
         .then(res => {
@@ -380,7 +455,7 @@ router.get('/comments/:id',async(ctx)=>{
             }
         })
 });
-//评论列表接口（http://localhost:3000/comments）
+//评论回复接口（http://localhost:3000/comments）
 router.get('/commentreplys/:id',async(ctx)=>{
     let id = ctx.params.id;
     console.log(id)
@@ -414,4 +489,196 @@ router.get('/articles',async(ctx)=>{
             }
         })
 });
+
+
+//主页面展示所有文章
+router.get('/account',async(ctx)=>{
+    let accounts;
+    await sql.findAllAccount()
+        .then(res => {
+            accounts = res;
+            console.log(accounts)
+        });
+    await ctx.render('sales_platform',{
+        accounts:accounts,
+        session: ctx.session
+    })
+});
+//主页面删改文章
+router.post('/account_del',async(ctx)=>{
+    let {id} = ctx.request.body;
+    await checkNotLogin(ctx);
+    await sql.deleteAccountData(id)
+        .then(()=>{
+            ctx.body = {
+                code: 200,
+                message: '删除文章成功'
+            }
+        }).catch(()=> {
+            ctx.body = {
+                code: 500,
+                message: '删除文章失败,请登录！'
+            }
+        })
+});
+//添加账号-路由
+router.get('/account_add',async(ctx)=>{
+    await checkNotLogin(ctx);
+    await ctx.render('account_add',{
+        session: ctx.session
+    });
+});
+//添加账号-数据
+router.post('/account_add',async (ctx)=> {
+    let {name,price,sect,body,areaclothing,faction,equipment,superequipment,exterior,album,descript} = ctx.request.body;
+    let time = moment().format('YYYY-MM-DD HH:mm:ss');
+    await  sql.insertAccountData([name,price,sect,body,areaclothing,faction,equipment,superequipment,exterior,album,descript])
+        .then(()=> {
+            ctx.body = {
+                code: 200,
+                message: '上传账号成功'
+            }
+        }).catch(()=> {
+            ctx.body = {
+                code: 500,
+                message: '上传账号失败'
+            }
+        })
+});
+//查看账号-路由
+router.get('/account_detail/:aid',async(ctx)=>{
+    await checkNotLogin(ctx);
+    let aid = ctx.params.aid,
+        res,
+        ress,
+        resss;
+    await sql.findAccountData(aid)
+        .then(result => {
+            res = result[0];
+        });
+    await ctx.render('account_detail', {
+        title: res.title,
+        content: res.content,
+        category: res.category,
+        id: res.id,
+        comments: ress,
+        commentreply: resss
+    })
+});
+//用户登出
+router.get('/signout', async ctx => {
+    ctx.session = null;
+    console.log('登出成功')
+    ctx.body = true
+})
+
+//用户注册
+router.get('/sign', async ctx => {
+    await checkLogin(ctx);
+    await ctx.render('login', {
+        session: ctx.session,
+    })
+})
+router.post('/sign', async ctx => {
+    let { name, password, repeatpass} = ctx.request.body
+    console.log(typeof password)
+    await sql.findDataCountByName(name)
+        .then(async (result) => {
+            console.log(result)
+            if (result[0].count >= 1) {
+                // 用户存在
+                ctx.body = {
+                    code: 500,
+                    message: '用户存在'
+                };
+            } else if (password !== repeatpass || password.trim() === '') {
+                ctx.body = {
+                    code: 500,
+                    message: '两次输入的密码不一致'
+                };
+            }else {
+                await sql.insertData([name, md5(password)])
+                    .then(res => {
+                        console.log('注册成功', res)
+                        //注册成功
+                        ctx.body = {
+                            code: 200,
+                            message: '注册成功'
+                        };
+                    })
+            }
+        })
+
+})
+
+//用户-添加
+router.post('/addbloguser',async(ctx)=>{
+    let name = ctx.request.body.name,
+        password = ctx.request.body.password,
+        avator = ctx.request.body.avator,
+        time = moment().format('YYYY-MM-DD HH:mm:ss');
+
+    let base64Data = avator.replace(/^data:image\/\w+;base64,/, ""),
+        dataBuffer = new Buffer(base64Data, 'base64'),
+        getName = Number(Math.random().toString().substr(3)).toString(36) + Date.now(),
+        upload = await new Promise((reslove, reject) => {
+            fs.writeFile('./public/images/' + getName + '.png', dataBuffer, err => {
+                if (err) {
+                    throw err;
+                    reject(false);
+                }
+                reslove(true);
+                console.log('头像上传成功');
+            })
+        })
+    await sql.addUser([name, md5(password), time, getName + '.png'])
+        .then(() => {
+            ctx.body = {
+                code:200,
+                message:'注册成功'
+            }
+        }).catch(() => {
+            ctx.body = {
+                code: 500,
+                message: '注册失败'
+            }
+        })
+})
+//用户登录
+router.get('/loginin', async ctx => {
+    await checkLogin(ctx);
+    await ctx.render('loginin', {
+        session: ctx.session,
+    })
+})
+router.post('/loginin', async ctx => {
+    console.log(ctx.request.body)
+    let { name, password } = ctx.request.body
+    await sql.findByName(name)
+        .then(result => {
+            let res = result;
+            if (res.length && name === res[0]['name'] && md5(password) === res[0]['password']) {
+                ctx.session = {
+                    user: res[0]['name'],
+                    id: res[0]['id']
+                };
+                ctx.body = {
+                    code: 200,
+                    message: '登录成功'
+                };
+                console.log('ctx.session.id', ctx.session.id)
+                console.log('session', ctx.session)
+                console.log('登录成功')
+            } else {
+                ctx.body = {
+                    code: 500,
+                    message: '用户名或密码错误'
+                }
+                console.log('用户名或密码错误!')
+            }
+        }).catch(err => {
+            console.log(err)
+        });
+})
+
 module.exports =router.routes();
