@@ -611,7 +611,33 @@ router.post('/sign', async ctx => {
 
 })
 
-//用户-添加
+//用户-注册/添加
+/*验证用户名是否重复*/
+router.get('/checkusername/:name', async ctx => {
+    let name = ctx.params.name;
+    console.log(name);
+    await sql.findByName(name)
+        .then((res) => {
+            console.log(res.length);
+            if(res.length){
+                ctx.body = {
+                    code:200,
+                    message:'用户名重复'
+                }
+            }else{
+                ctx.body = {
+                    code:201,
+                    message:'用户名不重复'
+                }
+            }
+        }).catch(() => {
+            ctx.body = {
+                code: 500,
+                message: '异常'
+            }
+        })
+});
+
 router.post('/addbloguser',async(ctx)=>{
     let name = ctx.request.body.name,
         password = ctx.request.body.password,
@@ -644,7 +670,26 @@ router.post('/addbloguser',async(ctx)=>{
             }
         })
 })
+
 //用户登录
+/*根据用户名获取用户头像*/
+router.get('/getavator/:name', async ctx => {
+    let name = ctx.params.name;
+    await sql.findByName(name)
+        .then((res) => {
+            ctx.body = {
+                code:200,
+                data: res[0].avator,
+                message:'获取成功'
+            }
+        }).catch(() => {
+            ctx.body = {
+                code: 500,
+                message: '无此用户，获取失败'
+            }
+        })
+});
+
 router.get('/loginin', async ctx => {
     await checkLogin(ctx);
     await ctx.render('loginin', {
