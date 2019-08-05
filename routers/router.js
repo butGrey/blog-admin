@@ -240,22 +240,8 @@ router.post('/message',async(ctx)=>{
         postid = ctx.request.body.postid,
         rpname = ctx.request.body.rpname,
         time = moment().format('YYYY-MM-DD HH:mm:ss');
-
-    let base64Data = avator.replace(/^data:image\/\w+;base64,/, ""),
-        dataBuffer = new Buffer(base64Data, 'base64'),
-        getName = Number(Math.random().toString().substr(3)).toString(36) + Date.now(),
-        upload = await new Promise((reslove, reject) => {
-            fs.writeFile('./public/images/' + getName + '.png', dataBuffer, err => {
-                if (err) {
-                    throw err;
-                    reject(false);
-                }
-                reslove(true);
-                console.log('头像上传成功');
-            })
-        })
     if(postid){
-        await sql.insertMessageReply([rpname, name, md.render(content), time, postid, getName + '.png'])
+        await sql.insertMessageReply([rpname, name, md.render(content), time, postid, avator])
             .then(() => {
                 ctx.body = {
                     code:200,
@@ -268,7 +254,7 @@ router.post('/message',async(ctx)=>{
                 }
             })
     }else {
-        await sql.insertMessage([name, md.render(content), time, getName + '.png'])
+        await sql.insertMessage([name, md.render(content), time, avator])
             .then(() => {
                 ctx.body = {
                     code:200,
@@ -661,6 +647,7 @@ router.post('/addbloguser',async(ctx)=>{
         .then(() => {
             ctx.body = {
                 code:200,
+                data: getName + '.png',
                 message:'注册成功'
             }
         }).catch(() => {
