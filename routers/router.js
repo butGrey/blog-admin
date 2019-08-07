@@ -123,24 +123,12 @@ router.post('/article_detail/:aid',async(ctx)=>{
     let name = ctx.request.body.name,
         content = ctx.request.body.content,
         avator = ctx.request.body.avator,
-        postId = ctx.params.aid,
-        commentid = ctx.request.body.commentid,
+        commentid = ctx.params.aid,
+        postId = ctx.request.body.commentid,
         rpname = ctx.request.body.rpname,
         time = moment().format('YYYY-MM-DD HH:mm:ss');
-    let base64Data = avator.replace(/^data:image\/\w+;base64,/, ""),
-        dataBuffer = new Buffer(base64Data, 'base64'),
-        getName = Number(Math.random().toString().substr(3)).toString(36) + Date.now(),
-        upload = await new Promise((reslove, reject) => {
-            fs.writeFile('./public/images/' + getName + '.png', dataBuffer, err => {
-                if (err) {
-                    throw err;
-                    reject(false);
-                }
-                reslove(true);
-            })
-        })
-    if(commentid){
-        await sql.insertCommentReply([rpname, commentid, name, md.render(content), time, postId, getName + '.png'])
+    if(postId){
+        await sql.insertCommentReply([rpname, postId, name, md.render(content), time, commentid, avator])
             .then(() => {
                 ctx.body = {
                     code:200,
@@ -153,7 +141,7 @@ router.post('/article_detail/:aid',async(ctx)=>{
                 }
             })
     }else{
-        await sql.insertComment([name, md.render(content), time, postId, getName + '.png'])
+        await sql.insertComment([name, md.render(content), time, commentid, avator])
             .then(() => {
                 ctx.body = {
                     code:200,
