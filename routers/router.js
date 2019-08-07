@@ -124,7 +124,7 @@ router.post('/article_detail/:aid',async(ctx)=>{
         content = ctx.request.body.content,
         avator = ctx.request.body.avator,
         commentid = ctx.params.aid,
-        postId = ctx.request.body.commentid,
+        postId = ctx.request.body.postid,
         rpname = ctx.request.body.rpname,
         time = moment().format('YYYY-MM-DD HH:mm:ss');
     if(postId){
