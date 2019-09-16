@@ -383,7 +383,6 @@ router.get('/users',async(ctx)=>{
 router.get('/messages',async(ctx)=>{
     await sql.findAllMessagesD()
         .then(res => {
-            debugger
             ctx.body = {
                 code: 200,
                 data: res,
