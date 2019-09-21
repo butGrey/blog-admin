@@ -5,10 +5,10 @@ const config = {
     database: {
         DATABASE: 'nodesql',
         USERNAME: 'root',
-        PASSWORD: 'aways1327',
+        PASSWORD: 'bll123',
         PORT: '3306',
         HOST: 'localhost'
     }
 }
 
-module.exports = config
+module.exports = config;
