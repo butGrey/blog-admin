@@ -1,16 +1,21 @@
 <%- include("header",{type:''}) %>
 <div class="container">
-
-    <form style="width:100%;" method="post" id="form2">
-        <div>
+    <form style="width:100%;" method="post" id="form2" name="fm" enctype="multipart/form-data">
+        <div class="blog">
             <label>标题：</label>
             <input placeholder="请输入标题" type="text" name="title">
         </div>
-        <div>
+        <div class="blog">
             <label>类别：</label>
             <input placeholder="请输入类别" type="text" name="category">
         </div>
-        <div>
+        <div class="blog">
+            <label>背景图片：</label>
+            <input id="img" class="import-img" type="file" name="img">
+            <input type="hidden" class="avatorVal">
+            <img class="previews" alt="预览">
+        </div>
+        <div class="blog">
             <label>内容：</label>
             <div id="div3"></div>
             <textarea style="height: 0px;width: 0px;" placeholder="请输入内容" name="content" id="text1" cols="42" rows="10"></textarea>
@@ -47,10 +52,18 @@
     editor2.create();
     $text1.val(editor2.txt.html())
     function add_article() {
+        var a = document.getElementById("img").files[0]
+        var formdata = new FormData();
+        formdata.append('img',a);
+        formdata.append('title',fm.title.value);
+        formdata.append('category',fm.category.value);
+        formdata.append('content',fm.content.value);
         $.ajax({
             type: 'post',
             url: '/article_adds',
-            data: $("#form2").serialize(),
+            data: formdata,
+            processData: false,//必须
+            contentType: false,//必须
             dataType: "json",
             success: function (msg) {
                 if (msg.code == 200){
@@ -64,9 +77,44 @@
                 alert("异常");
             }
         });
-        console.log($("#form2").serialize());
     }
 
+    function submitimg(event,obj) {
+        if (obj.files.length != 0) {
+            var file = obj.files[0],
+                reader = new FileReader();
+            if (!reader) {
+                obj.value = '';
+                return;
+            };
+            console.log(file.size,file.type)
+            if (!/image/g.test(file.type)) {
+                alert("请上传图片文件!")
+                $(obj).siblings('.avatorVal').val('')
+                $(obj).siblings('form .previews').attr('src', '')
+                $(obj).siblings('form .previews').fadeOut()
+                return;
+            }
+            reader.onload = function (e) {
+                obj.value = '';
+                $(obj).siblings('form .previews').attr('src', e.target.result)
+                $(obj).siblings('form .previews').fadeIn()
+                var image = new Image();
+                image.onload = function(){
+                    var canvas = document.createElement('canvas');
+                    var ctx = canvas.getContext("2d");
+                    canvas.width = 100;
+                    canvas.height = 100;
+                    ctx.clearRect(0, 0, 100, 100);
+                    ctx.drawImage(image, 0, 0, 100, 100);
+                    var blob = canvas.toDataURL("image/png");
+                    $(obj).siblings('.avatorVal').val(blob)
+                }
+                image.src = e.target.result
+            };
+            reader.readAsDataURL(file);
+        }
+    }
 </script>
 
 </body>

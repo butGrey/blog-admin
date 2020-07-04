@@ -26,12 +26,12 @@
     <ul class="posts">
         <% for (var i=0;i<articles.length;i++){%>
             <li class="lists">
-                <h2 class="title" style="display: inline-block;margin: 10px auto;">标题：<%= articles[i].title %></h2>
+                <h4 class="title" style="display: inline-block;margin: 10px auto;">标题：<%= articles[i].title %></h4>
                 <button>修改</button>
                 <button id="del" onclick="delete_article(<%= articles[i].id %>)"> 删除</button>
                 <p class="time">时间：<%= articles[i].moment %></p>
                 <p class="category">类别：<%= articles[i].category %></p>
-                <div class="content" style="border: 1px solid red;">内容：<%- articles[i].content %></div>
+                <div class="content">内容：<%- articles[i].content %></div>
             </li>
         <% } %>
     </ul>

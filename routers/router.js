@@ -4,11 +4,26 @@ const config = require('../config/default.js');
 const sql = require('../lib/mysql.js');
 const moment = require('moment');
 const fs = require('fs');
+const multer = require('koa-multer');
 const md5 = require('md5');
 const md = require('markdown-it')();
 const path = require('path');
 const checkNotLogin = require('../middlewares/check.js').checkNotLogin
 const checkLogin = require('../middlewares/check.js').checkLogin
+
+//以下是配置
+var storage = multer.diskStorage({
+    //定义文件保存路径
+    destination:function(req,file,cb){
+        cb(null,'./public/images/');//路径根据具体而定。如果不存在的话会自动创建一个路径
+    },
+    filename:function(req,file,cb){ //修改文件名
+        var fileFormat = (file.originalname).split(".");
+        cb(null,Date.now() + "." + fileFormat[fileFormat.length - 1]);
+    }
+})
+
+var upload = multer({ storage: storage });
 
 //主页面展示所有文章
 router.get('/art',async(ctx)=>{
@@ -75,10 +90,11 @@ router.get('/article_add',async(ctx)=>{
     await ctx.render('article_add');
 });
 //添加文章-数据
-router.post('/article_adds',async (ctx)=> {
-    let {title, category, content} = ctx.request.body;
+router.post('/article_adds',upload.single('img'),async (ctx, next)=> {
+    let {title, category, content} = ctx.req.body;
     let time = moment().format('YYYY-MM-DD HH:mm:ss');
-    await  sql.insertPosts([title, category, content, time])
+
+    await  sql.insertPosts([title, category, content, time, ctx.req.file.filename])
         .then(()=> {
             ctx.body = {
                 code: 200,
@@ -93,6 +109,7 @@ router.post('/article_adds',async (ctx)=> {
 });
 //查看文章-路由
 router.get('/article_detail/:aid',async(ctx)=>{
+    console.log('-----------------')
     let aid = ctx.params.aid,
         res,
         ress,
@@ -109,14 +126,16 @@ router.get('/article_detail/:aid',async(ctx)=>{
         .then(result => {
             resss = result;
         });
-    await ctx.render('article_detail', {
+    let data = {
         title: res.title,
         content: res.content,
         category: res.category,
         id: res.id,
         comments: ress,
         commentreply: resss
-    })
+    }
+    console.log(data)
+    await ctx.render('article_detail', data)
 });
 //评论-添加
 router.post('/article_detail/:aid',async(ctx)=>{
@@ -449,12 +468,7 @@ router.get('/commentreplys/:id',async(ctx)=>{
 //文章列表接口（http://localhost:3000/articles）
 router.get('/articles',async(ctx)=>{
     await sql.findAllPostsD()
-        .then(res => {
-            ctx.body = {
-                code: 200,
-                data: res,
-                message:'获取列表成功'
-            };
+        .then(res => {z
         }).catch(err=>{
             ctx.body = {
                 code: 500,
@@ -462,7 +476,54 @@ router.get('/articles',async(ctx)=>{
             }
         })
 });
-
+//文章详情接口（http://localhost:3000/articles/:aid）
+router.get('/getArticleDetail/:aid',async(ctx)=>{
+    let aid = ctx.params.aid,
+        res,
+        ress,
+        resss;
+    await sql.findDataById(aid)
+        .then(result => {
+            res = result[0];
+        }).catch(err=>{
+            ctx.body = {
+                code: 500,
+                message: 'failure'
+            }
+        });
+    await sql.findCommentByIdD(aid)
+        .then(result => {
+            ress = result;
+        }).catch(err=>{
+            ctx.body = {
+                code: 500,
+                message: 'failure'
+            }
+        });
+    await sql.findCommentsReplyById(aid)
+        .then(result => {
+            resss = result;
+        }).catch(err=>{
+            ctx.body = {
+                code: 500,
+                message: 'failure'
+            }
+        });
+    let data = {
+        title: res.title,
+        content: res.content,
+        category: res.category,
+        id: res.id,
+        comments: ress,
+        commentreply: resss
+    }
+    console.log(data)
+    ctx.body = {
+        code: 200,
+        data: data,
+        message:'success'
+    };
+});
 
 //主页面展示所有文章
 router.get('/account',async(ctx)=>{

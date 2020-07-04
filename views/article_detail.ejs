@@ -2,22 +2,20 @@
 <div class="container">
     <ul class="posts">
         <li class="lists">
-            <h2 class="title" style="display: inline-block;margin: 10px auto;">标题：<%= title %></h2>
-            <p class="time">时间：</p>
-            <p class="category">类别：<%= category %></p>
-            <div class="content" style="border: 1px solid red;">内容：<%- content %></div>
+            <h4 class="title mg10">标题：<%= title %></h4>
+            <p class="time mg10">时间：</p>
+            <p class="category mg10">类别：<%= category %></p>
+            <div class="content mg10">内容：<%- content %></div>
         </li>
     </ul>
 
     <form class="form" method="post" action="">
         <input placeholder="请输入昵称" type="text" name="name">
         <input placeholder="请输入评论" name="content" cols="82">
-
-            <label>上传头像：</label>
-            <input type="file" name="avator" onchange="submitimg(event,this)">
-            <input type="hidden" class="avatorVal">
-            <img class="preview" alt="预览头像">
-
+        <label>上传头像：</label>
+        <input type="file" name="avator" onchange="submitimg(event,this)">
+        <input type="hidden" class="avatorVal">
+        <img class="preview" alt="预览头像">
         <div class="submit" onclick="submitmsg('','',event)">发表留言</div>
     </form>
     <div>
@@ -35,13 +33,13 @@
                     <input placeholder="请输入评论" name="content" cols="82">
 
                     <label>上传头像：</label>
-                    <input type="file" name="avator" onchange="submitimg(event,this)">
+                    <input class="import-img" type="file" name="avator" onchange="submitimg(event,this)">
                     <input type="hidden" class="avatorVal">
                     <img class="preview" alt="预览头像">
 
                     <div class="submit" onclick="submitmsg(<%=comments[i].id%>,'<%=comments[i].name%>',event)">发表留言</div>
                 </form>
-                <ul style="margin: 10px;border: 1px solid red;">
+                <ul style="margin: 10px;border: 1px solid #8a7579;">
                     <% for (var j=0;j<commentreply.length;j++){%>
                     <%if(comments[i].id == commentreply[j].commentid){%>
                         <li>
@@ -56,7 +54,7 @@
                                 <input placeholder="请输入评论" name="content" cols="82">
 
                                 <label>上传头像：</label>
-                                <input type="file" name="avator" class="avator" onchange="submitimg(event,this)">
+                                <input class="import-img" type="file" name="avator" class="avator" onchange="submitimg(event,this)">
                                 <input type="hidden" class="avatorVal">
                                 <img class="preview" alt="预览头像">
 

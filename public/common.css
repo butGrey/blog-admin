@@ -3,11 +3,8 @@ li{list-style:none}
 img{vertical-align:top;border:none}
 a { text-decoration: none; }
 a:hover { text-decoration: underline; }
-body{
-    background-color: #fcf4f2;
-}
 input{
-    width:15rem;
+    width:14rem;
     height:40px;
     border:1px solid #c0c0c0;
     font-size: 16px;
@@ -18,7 +15,7 @@ input:-webkit-autofill {
 header{
     width:100%;
     height:50px;
-    background-color: lightpink;
+    background-color: #8a7579;
 }
 .list{
     width:100%;
@@ -50,20 +47,40 @@ header{
     margin: 10px auto;
     padding:10px;
     text-align: left;
-    background-color: #fcf4f2;
 }
 .lists{
     padding:10px;
     margin:10px;
     background-color: #fff;
+    border: 1px solid #8a7579;
 }
 .preview,.rpreview,.rpreviews{
+    display: block;
+    margin-top: 10px;
     width: 100px;
     height: 100px;
+}
+.previews{
+    display: block;
+    margin-top: 10px;
+    width: 300px;
 }
 .form2,.form3{
     display: none;
 }
 .submit3,.submit,.submit2,.submit4,.submit5{
     color: blue;
+}
+.blog{
+    margin: 10px;
+}
+.import-img{
+    width: 80px;
+    height: 27px;
+}
+.mg10{
+    margin: 10px;
+}
+.title{
+    display: inline-block;
 }
