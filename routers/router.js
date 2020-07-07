@@ -10,7 +10,6 @@ const md = require('markdown-it')();
 const path = require('path');
 const checkNotLogin = require('../middlewares/check.js').checkNotLogin
 const checkLogin = require('../middlewares/check.js').checkLogin
-const checkLogin = require('../middlewares/check.js').checkLogin
 
 //以下是配置
 var storage = multer.diskStorage({

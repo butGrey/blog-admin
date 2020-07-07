@@ -2,18 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cbb00639-2ed7-4f26-8f26-c5639479a032" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/images/scroll.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/mysql.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/mysql.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/common.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/common.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routers/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/routers/router.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/article_add.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/article_add.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/article_detail.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/article_detail.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/home.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/home.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/index.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/index.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/message.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/message.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/test.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/test.ejs" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -32,8 +22,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="18" selection-start-column="18" selection-end-column="18" />
+            <state relative-caret-position="307">
+              <caret line="40" column="8" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -41,8 +31,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/mysql.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="466">
-              <caret line="109" column="7" selection-start-line="109" selection-start-column="7" selection-end-line="109" selection-end-column="7" />
+            <state relative-caret-position="378">
+              <caret line="335" column="1" selection-start-line="335" selection-start-column="1" selection-end-line="335" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -50,8 +40,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routers/router.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3">
-              <caret line="479" column="29" selection-start-line="479" selection-start-column="13" selection-end-line="479" selection-end-column="29" />
+            <state relative-caret-position="181">
+              <caret line="13" column="7" lean-forward="true" selection-start-line="13" selection-start-column="7" selection-end-line="13" selection-end-column="7" />
               <folding>
                 <element signature="e#731#1052#0" />
                 <element signature="e#1111#1391#0" />
@@ -84,12 +74,19 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/default.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="252">
+              <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>findCommentsReplyById</find>
-      <find>article_add</find>
       <find>article_revise</find>
       <find>add</find>
       <find>posts</find>
@@ -112,11 +109,13 @@
       <find>dataType</find>
       <find>base64Data</find>
       <find>multer</find>
-      <find>debugger</find>
       <find>post</find>
-      <find>articles</find>
       <find>article_detail</find>
       <find>getArticleDetail</find>
+      <find>consol</find>
+      <find>articles</find>
+      <find>console.log</find>
+      <find>debugger</find>
       <find>extenddata</find>
     </findStrings>
     <replaceStrings>
@@ -130,6 +129,12 @@
   <component name="Git.Settings">
     <option name="UPDATE_TYPE" value="MERGE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--follow-tags" />
+        <option name="title" value="Current Branch" />
+      </GitPushTagMode>
+    </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -144,7 +149,6 @@
         <option value="$PROJECT_DIR$/views/article_revise.ejs" />
         <option value="$PROJECT_DIR$/public/jquery111.min.js" />
         <option value="$PROJECT_DIR$/app.js" />
-        <option value="$PROJECT_DIR$/config/default.js" />
         <option value="$PROJECT_DIR$/views/message.ejs" />
         <option value="$PROJECT_DIR$/views/index.ejs" />
         <option value="$PROJECT_DIR$/views/test.ejs" />
@@ -153,15 +157,15 @@
         <option value="$PROJECT_DIR$/public/common.css" />
         <option value="$PROJECT_DIR$/lib/mysql.js" />
         <option value="$PROJECT_DIR$/views/article_add.ejs" />
+        <option value="$PROJECT_DIR$/config/default.js" />
         <option value="$PROJECT_DIR$/routers/router.js" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="398" />
-    <option name="y" value="26" />
-    <option name="width" value="1225" />
-    <option name="height" value="735" />
+    <option name="x" value="-12" />
+    <option name="width" value="925" />
+    <option name="height" value="1040" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -182,13 +186,7 @@
             <path>
               <item name="blog-admin" type="b2602c69:ProjectViewProjectNode" />
               <item name="blog-admin" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="blog-admin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="blog-admin" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -279,7 +277,7 @@
       <workItem from="1593344862280" duration="1103000" />
       <workItem from="1593492257296" duration="575000" />
       <workItem from="1593777747169" duration="3575000" />
-      <workItem from="1593799126613" duration="12672000" />
+      <workItem from="1593799126613" duration="22532000" />
     </task>
     <task id="LOCAL-00001" summary="用户评论">
       <created>1545059436133</created>
@@ -400,11 +398,25 @@
       <option name="project" value="LOCAL" />
       <updated>1545841089575</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="文章详情">
+      <created>1593873573384</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1593873573384</updated>
+    </task>
+    <task id="LOCAL-00019" summary="文章详情">
+      <created>1594122481820</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1594122481820</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="120731000" />
+    <option name="totallyTimeSpent" value="130591000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -417,6 +429,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7295597" visible="true" weight="0.15709014" />
       <window_info id="Structure" order="1" sideWeight="0.27044025" side_tool="true" weight="0.15587847" />
@@ -431,8 +444,8 @@
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32840723" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.43028322" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" weight="0.12807882" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.1906318" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5002636" side_tool="true" weight="0.18627451" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.49973643" visible="true" weight="0.4324619" />
       <window_info anchor="bottom" id="TypeScript" order="11" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -521,19 +534,20 @@
     <MESSAGE value="留言-回复-删除" />
     <MESSAGE value="留言-二級回复" />
     <MESSAGE value="评论-二級回复" />
-    <option name="LAST_COMMIT_MESSAGE" value="评论-二級回复" />
+    <MESSAGE value="文章详情" />
+    <option name="LAST_COMMIT_MESSAGE" value="文章详情" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/routers/router.js</url>
-          <line>176</line>
+          <line>171</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/routers/router.js</url>
-          <line>205</line>
+          <line>200</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
@@ -621,13 +635,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/default.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="15" selection-start-line="4" selection-start-column="15" selection-end-line="4" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/footer.ejs">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -679,25 +686,18 @@
     <entry file="file://$PROJECT_DIR$/public/images/t3j.jpeg">
       <provider selected="true" editor-type-id="images" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/upload/1593805677475.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/images/1593806379939.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/mysql/lib/protocol/sequences/Sequence.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="46" column="13" selection-start-line="46" selection-start-column="13" selection-end-line="46" selection-end-column="13" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="18" selection-start-column="18" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/upload/1593805677475.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/images/1593806379939.jpg">
-      <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/views/article_add.ejs">
       <provider selected="true" editor-type-id="text-editor">
@@ -712,15 +712,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/mysql.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="466">
-          <caret line="109" column="7" selection-start-line="109" selection-start-column="7" selection-end-line="109" selection-end-column="7" />
+        <state relative-caret-position="378">
+          <caret line="335" column="1" selection-start-line="335" selection-start-column="1" selection-end-line="335" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/default.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="307">
+          <caret line="40" column="8" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routers/router.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3">
-          <caret line="479" column="29" selection-start-line="479" selection-start-column="13" selection-end-line="479" selection-end-column="29" />
+        <state relative-caret-position="181">
+          <caret line="13" column="7" lean-forward="true" selection-start-line="13" selection-start-column="7" selection-end-line="13" selection-end-column="7" />
           <folding>
             <element signature="e#731#1052#0" />
             <element signature="e#1111#1391#0" />
