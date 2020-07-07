@@ -10,6 +10,7 @@ const md = require('markdown-it')();
 const path = require('path');
 const checkNotLogin = require('../middlewares/check.js').checkNotLogin
 const checkLogin = require('../middlewares/check.js').checkLogin
+const checkLogin = require('../middlewares/check.js').checkLogin
 
 //以下是配置
 var storage = multer.diskStorage({
@@ -109,7 +110,6 @@ router.post('/article_adds',upload.single('img'),async (ctx, next)=> {
 });
 //查看文章-路由
 router.get('/article_detail/:aid',async(ctx)=>{
-    console.log('-----------------')
     let aid = ctx.params.aid,
         res,
         ress,
@@ -127,14 +127,10 @@ router.get('/article_detail/:aid',async(ctx)=>{
             resss = result;
         });
     let data = {
-        title: res.title,
-        content: res.content,
-        category: res.category,
-        id: res.id,
+        ...res,
         comments: ress,
         commentreply: resss
     }
-    console.log(data)
     await ctx.render('article_detail', data)
 });
 //评论-添加
@@ -208,7 +204,6 @@ router.post('/article_detail/:aid/comment_delete/:ids',async(ctx)=>{
 router.post('/article_detail/:aid/commentreply_delete/:id',async(ctx)=>{
     let postId = ctx.params.aid,
         commentreplyId = ctx.params.id;
-    console.log(commentreplyId)
     await sql.deleteCommentReply(commentreplyId)
         .then(() => {
             ctx.body = {
@@ -232,7 +227,6 @@ router.get('/message',async(ctx)=>{
     await sql.findAllMessagesReply()
         .then(result => {
             ress = result;
-            console.log(ress)
         });
     await ctx.render('message', {
         messages: res,
@@ -450,7 +444,6 @@ router.get('/comments/:id',async(ctx)=>{
 //评论回复接口（http://localhost:3000/comments）
 router.get('/commentreplys/:id',async(ctx)=>{
     let id = ctx.params.id;
-    console.log(id)
     await sql.findCommentsReplyById(id)
         .then(res => {
             ctx.body = {
@@ -468,7 +461,12 @@ router.get('/commentreplys/:id',async(ctx)=>{
 //文章列表接口（http://localhost:3000/articles）
 router.get('/articles',async(ctx)=>{
     await sql.findAllPostsD()
-        .then(res => {z
+        .then(res => {
+            ctx.body = {
+                code: 200,
+                data: res,
+                message:'获取列表成功'
+            };
         }).catch(err=>{
             ctx.body = {
                 code: 500,
@@ -476,53 +474,39 @@ router.get('/articles',async(ctx)=>{
             }
         })
 });
-//文章详情接口（http://localhost:3000/articles/:aid）
+//文章详情接口（http://localhost:3000/getArticleDetail/:aid）
 router.get('/getArticleDetail/:aid',async(ctx)=>{
     let aid = ctx.params.aid,
         res,
         ress,
         resss;
-    await sql.findDataById(aid)
-        .then(result => {
-            res = result[0];
-        }).catch(err=>{
-            ctx.body = {
-                code: 500,
-                message: 'failure'
-            }
-        });
     await sql.findCommentByIdD(aid)
         .then(result => {
             ress = result;
-        }).catch(err=>{
-            ctx.body = {
-                code: 500,
-                message: 'failure'
-            }
         });
     await sql.findCommentsReplyById(aid)
         .then(result => {
             resss = result;
+        });
+    await sql.findDataById(aid)
+        .then(result => {
+            res = result[0];
+            let data = {
+                ...res,
+                comments: ress,
+                commentreply: resss
+            }
+            ctx.body = {
+                code: 200,
+                data: data,
+                message:'success'
+            };
         }).catch(err=>{
             ctx.body = {
                 code: 500,
                 message: 'failure'
             }
         });
-    let data = {
-        title: res.title,
-        content: res.content,
-        category: res.category,
-        id: res.id,
-        comments: ress,
-        commentreply: resss
-    }
-    console.log(data)
-    ctx.body = {
-        code: 200,
-        data: data,
-        message:'success'
-    };
 });
 
 //主页面展示所有文章
@@ -531,7 +515,6 @@ router.get('/account',async(ctx)=>{
     await sql.findAllAccount()
         .then(res => {
             accounts = res;
-            console.log(accounts)
         });
     await ctx.render('sales_platform',{
         accounts:accounts,
@@ -615,10 +598,8 @@ router.get('/sign', async ctx => {
 })
 router.post('/sign', async ctx => {
     let { name, password, repeatpass} = ctx.request.body
-    console.log(typeof password)
     await sql.findDataCountByName(name)
         .then(async (result) => {
-            console.log(result)
             if (result[0].count >= 1) {
                 // 用户存在
                 ctx.body = {
@@ -649,10 +630,8 @@ router.post('/sign', async ctx => {
 /*验证用户名是否重复*/
 router.get('/checkusername/:name', async ctx => {
     let name = ctx.params.name;
-    console.log(name);
     await sql.findByName(name)
         .then((res) => {
-            console.log(res.length);
             if(res.length){
                 ctx.body = {
                     code:200,
@@ -732,7 +711,6 @@ router.get('/loginin', async ctx => {
     })
 })
 router.post('/loginin', async ctx => {
-    console.log(ctx.request.body)
     let { name, password } = ctx.request.body
     await sql.findByName(name)
         .then(result => {
@@ -746,8 +724,6 @@ router.post('/loginin', async ctx => {
                     code: 200,
                     message: '登录成功'
                 };
-                console.log('ctx.session.id', ctx.session.id)
-                console.log('session', ctx.session)
                 console.log('登录成功')
             } else {
                 ctx.body = {
