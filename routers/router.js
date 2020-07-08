@@ -1,5 +1,4 @@
 const router = require('koa-router')();
-//const common = require('../module/common.js');
 const config = require('../config/default.js');
 const sql = require('../lib/mysql.js');
 const moment = require('moment');
@@ -85,15 +84,10 @@ router.post('/article_revise/:aid',async(ctx)=>{
             }
         })
 });
-//添加文章-路由
-router.get('/article_add',async(ctx)=>{
-    await ctx.render('article_add');
-});
 //添加文章-数据
-router.post('/article_adds',upload.single('img'),async (ctx, next)=> {
+router.post('/createArticle',upload.single('img'),async (ctx)=> {
     let {title, category, content} = ctx.req.body;
     let time = moment().format('YYYY-MM-DD HH:mm:ss');
-
     await  sql.insertPosts([title, category, content, time, ctx.req.file.filename])
         .then(()=> {
             ctx.body = {
@@ -106,6 +100,7 @@ router.post('/article_adds',upload.single('img'),async (ctx, next)=> {
                 message: '上传文章失败'
             }
         })
+
 });
 //查看文章-路由
 router.get('/article_detail/:aid',async(ctx)=>{
@@ -312,7 +307,6 @@ router.post('/messagereply/:ids',async(ctx)=>{
             }
         })
 })
-
 //用户-查看
 router.get('/user',async(ctx)=>{
     let res;
@@ -507,7 +501,6 @@ router.get('/getArticleDetail/:aid',async(ctx)=>{
             }
         });
 });
-
 //主页面展示所有文章
 router.get('/account',async(ctx)=>{
     let accounts;
@@ -587,7 +580,6 @@ router.get('/signout', async ctx => {
     console.log('登出成功')
     ctx.body = true
 })
-
 //用户注册
 router.get('/sign', async ctx => {
     await checkLogin(ctx);
@@ -624,7 +616,6 @@ router.post('/sign', async ctx => {
         })
 
 })
-
 //用户-注册/添加
 /*验证用户名是否重复*/
 router.get('/checkusername/:name', async ctx => {
@@ -649,7 +640,6 @@ router.get('/checkusername/:name', async ctx => {
             }
         })
 });
-
 router.post('/addbloguser',async(ctx)=>{
     let name = ctx.request.body.name,
         password = ctx.request.body.password,

@@ -52,15 +52,16 @@
     editor2.create();
     $text1.val(editor2.txt.html())
     function add_article() {
-        var a = document.getElementById("img").files[0]
+        var a = document.querySelector("#img").files[0]
         var formdata = new FormData();
         formdata.append('img',a);
         formdata.append('title',fm.title.value);
         formdata.append('category',fm.category.value);
         formdata.append('content',fm.content.value);
+        console.log(formdata)
         $.ajax({
             type: 'post',
-            url: '/article_adds',
+            url: '/createArticle',
             data: formdata,
             processData: false,//必须
             contentType: false,//必须

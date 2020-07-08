@@ -4,6 +4,7 @@
     <list default="true" id="cbb00639-2ed7-4f26-8f26-c5639479a032" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routers/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/routers/router.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/article_add.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/createArticle.ejs" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -19,85 +20,72 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="307">
-              <caret line="40" column="8" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="8" />
+            <state relative-caret-position="284">
+              <caret line="23" column="17" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="17" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/mysql.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="335" column="1" selection-start-line="335" selection-start-column="1" selection-end-line="335" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routers/router.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="181">
-              <caret line="13" column="7" lean-forward="true" selection-start-line="13" selection-start-column="7" selection-end-line="13" selection-end-column="7" />
-              <folding>
-                <element signature="e#731#1052#0" />
-                <element signature="e#1111#1391#0" />
-                <element signature="e#1451#1929#0" />
-                <element signature="e#2075#2515#0" />
-              </folding>
+            <state relative-caret-position="-127">
+              <caret line="324" column="26" lean-forward="true" selection-start-line="324" selection-start-column="26" selection-end-line="324" selection-end-column="26" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/node_modules/mysql/lib/protocol/sequences/Sequence.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="46" column="13" selection-start-line="46" selection-start-column="13" selection-end-line="46" selection-end-column="13" />
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/public/images/1594143437969.png">
+          <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/article_add.ejs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1134">
-              <caret line="80" selection-start-line="80" selection-end-line="80" />
-              <folding>
-                <element signature="e#1116#1566#0#HTML" />
-                <element signature="e#2382#3804#0#HTML" />
-              </folding>
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/public/images/400x400.png">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/images/11.jpg">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/images/9kwb0u2cj71593890701275.png">
+          <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/default.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+            <state relative-caret-position="216">
+              <caret line="12" selection-start-line="12" selection-end-line="12" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/images/3.jpg">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/images/2g135664hj91594144934553.png">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/images/2.jpg">
+          <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
     </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>article_revise</find>
-      <find>add</find>
-      <find>posts</find>
-      <find>extend</find>
-      <find>red</find>
-      <find>border: 1px solid red;</find>
-      <find>&lt;h2</find>
-      <find>border: 1px solid #8a7579;</find>
-      <find>#fcf4f2</find>
-      <find>style=&quot;border: 1px solid #8a7579;&quot;</find>
-      <find>submitimg</find>
       <find>preview</find>
       <find>lists</find>
       <find>insertPosts</find>
@@ -108,15 +96,26 @@
       <find>submitmsg</find>
       <find>dataType</find>
       <find>base64Data</find>
-      <find>multer</find>
       <find>post</find>
-      <find>article_detail</find>
       <find>getArticleDetail</find>
       <find>consol</find>
       <find>articles</find>
       <find>console.log</find>
-      <find>debugger</find>
+      <find>checkLogin</find>
+      <find>multer</find>
+      <find>database.</find>
+      <find>$.ajax</find>
       <find>extenddata</find>
+      <find>database.HOST</find>
+      <find>article_add</find>
+      <find>debugger</find>
+      <find>wangEditor</find>
+      <find>submitimg</find>
+      <find>api</find>
+      <find>article_adds</find>
+      <find>app.use</find>
+      <find>fm</find>
+      <find>article_detail</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -124,6 +123,7 @@
     </replaceStrings>
     <dirStrings>
       <dir>C:\bll_workspace\project\node01\blog-admin\views</dir>
+      <dir>C:\bll_workspace\project\node01\blog-admin\</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -156,8 +156,8 @@
         <option value="$PROJECT_DIR$/views/home.ejs" />
         <option value="$PROJECT_DIR$/public/common.css" />
         <option value="$PROJECT_DIR$/lib/mysql.js" />
-        <option value="$PROJECT_DIR$/views/article_add.ejs" />
         <option value="$PROJECT_DIR$/config/default.js" />
+        <option value="$PROJECT_DIR$/views/article_add.ejs" />
         <option value="$PROJECT_DIR$/routers/router.js" />
       </list>
     </option>
@@ -187,6 +187,31 @@
               <item name="blog-admin" type="b2602c69:ProjectViewProjectNode" />
               <item name="blog-admin" type="462c0819:PsiDirectoryNode" />
               <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="blog-admin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="blog-admin" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="blog-admin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="blog-admin" type="462c0819:PsiDirectoryNode" />
+              <item name="middlewares" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="blog-admin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="blog-admin" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="blog-admin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="blog-admin" type="462c0819:PsiDirectoryNode" />
+              <item name="routers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="blog-admin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="blog-admin" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -277,7 +302,7 @@
       <workItem from="1593344862280" duration="1103000" />
       <workItem from="1593492257296" duration="575000" />
       <workItem from="1593777747169" duration="3575000" />
-      <workItem from="1593799126613" duration="22532000" />
+      <workItem from="1593799126613" duration="37863000" />
     </task>
     <task id="LOCAL-00001" summary="用户评论">
       <created>1545059436133</created>
@@ -412,11 +437,18 @@
       <option name="project" value="LOCAL" />
       <updated>1594122481820</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="文章详情">
+      <created>1594128060650</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1594128060650</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="130591000" />
+    <option name="totallyTimeSpent" value="145922000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -431,21 +463,21 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7295597" visible="true" weight="0.15709014" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.7295597" visible="true" weight="0.15709014" />
       <window_info id="Structure" order="1" sideWeight="0.27044025" side_tool="true" weight="0.15587847" />
       <window_info id="npm" order="2" sideWeight="0.5012225" side_tool="true" weight="0.1845238" />
       <window_info id="Favorites" order="3" sideWeight="0.3957307" side_tool="true" weight="0.1845238" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32897604" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.296034" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32840723" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" weight="0.43028322" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.3224401" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5002636" side_tool="true" weight="0.18627451" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.49973643" visible="true" weight="0.4324619" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49973643" visible="true" weight="0.12418301" />
       <window_info anchor="bottom" id="TypeScript" order="11" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -542,12 +574,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/routers/router.js</url>
-          <line>171</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/routers/router.js</url>
-          <line>200</line>
+          <line>195</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
@@ -621,13 +648,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package-lock.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="6" column="67" selection-start-line="6" selection-start-column="67" selection-end-line="6" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/article_revise.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="541">
@@ -659,19 +679,57 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/images/2.jpg">
+    <entry file="file://$PROJECT_DIR$/upload/1593805677475.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/images/3.jpg">
+    <entry file="file://$PROJECT_DIR$/public/images/1593806379939.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/images/11.jpg">
+    <entry file="file://$PROJECT_DIR$/node_modules/mysql/lib/protocol/sequences/Sequence.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="46" column="13" selection-start-line="46" selection-start-column="13" selection-end-line="46" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package-lock.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="6" column="67" selection-start-line="6" selection-start-column="67" selection-end-line="6" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/mysql.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="486">
+          <caret line="335" column="1" selection-start-line="335" selection-start-column="1" selection-end-line="335" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/createArticle.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="387">
+          <caret line="64" column="27" selection-start-line="64" selection-start-column="27" selection-end-line="64" selection-end-column="27" />
+          <folding>
+            <element signature="n#style#0;n#textarea#0;n#div#3;n#form#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="e#1116#1566#0#HTML" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/images/1ixbkaef2gh1593890637815.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/images/400x400.png">
+    <entry file="file://$PROJECT_DIR$/public/images/1ma657013x71593801510332.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/public/images/fg.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/images/scroll.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/images/t1.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/public/images/t2.jpeg">
@@ -686,61 +744,66 @@
     <entry file="file://$PROJECT_DIR$/public/images/t3j.jpeg">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/upload/1593805677475.jpg">
+    <entry file="file://$PROJECT_DIR$/public/images/wdx3vqjza1594119737215.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/images/1593806379939.jpg">
+    <entry file="file://$PROJECT_DIR$/public/images/zkxq5l98m91594144944881.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/mysql/lib/protocol/sequences/Sequence.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="46" column="13" selection-start-line="46" selection-start-column="13" selection-end-line="46" selection-end-column="13" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/public/images/1594144659220.jpg">
+      <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/article_add.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1134">
-          <caret line="80" selection-start-line="80" selection-end-line="80" />
-          <folding>
-            <element signature="e#1116#1566#0#HTML" />
-            <element signature="e#2382#3804#0#HTML" />
-          </folding>
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/public/images/1594144594146.jpg">
+      <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/mysql.js">
+    <entry file="file://$PROJECT_DIR$/public/images/1594144573655.jpeg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/images/1594144548099.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/images/1594144461578.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/images/1594143437969.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/images/400x400.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/images/11.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/images/9kwb0u2cj71593890701275.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/images/3.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/images/2g135664hj91594144934553.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/images/2.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routers/router.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="335" column="1" selection-start-line="335" selection-start-column="1" selection-end-line="335" selection-end-column="1" />
+        <state relative-caret-position="-127">
+          <caret line="324" column="26" lean-forward="true" selection-start-line="324" selection-start-column="26" selection-end-line="324" selection-end-column="26" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/config/default.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+        <state relative-caret-position="216">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="40" column="8" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routers/router.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="13" column="7" lean-forward="true" selection-start-line="13" selection-start-column="7" selection-end-line="13" selection-end-column="7" />
-          <folding>
-            <element signature="e#731#1052#0" />
-            <element signature="e#1111#1391#0" />
-            <element signature="e#1451#1929#0" />
-            <element signature="e#2075#2515#0" />
-          </folding>
+        <state relative-caret-position="284">
+          <caret line="23" column="17" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="17" />
         </state>
       </provider>
     </entry>
